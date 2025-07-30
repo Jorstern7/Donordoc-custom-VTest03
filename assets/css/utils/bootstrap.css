@@ -3853,9 +3853,12 @@ textarea.form-control-lg {
   background-color: #e9ecef;
 }
 .dropdown-item.active, .dropdown-item:active {
-  color: #fff;
+  /* color: #fff; */
   text-decoration: none;
-  background-color: #0d6efd;
+  /* background-color: #0d6efd; */
+  color: #37b24d !important;
+  background-color: white;
+  font-weight: 500;
 }
 .dropdown-item.disabled, .dropdown-item:disabled {
   color: #adb5bd;

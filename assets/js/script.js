@@ -56,13 +56,42 @@ function initStickyHeader() {
 }
 
 /**
- * Mobile Menu Toggle
+ * Mobile Menu Toggle with Offcanvas Integration
  */
 function initMobileMenu() {
   const toggler = document.querySelector(".navbar-toggler");
+  const offcanvasElement = document.getElementById("offcanvasNavbar");
+  const offcanvasInstance = offcanvasElement ? 
+    bootstrap.Offcanvas.getOrCreateInstance(offcanvasElement) : null;
+
   if (toggler) {
     toggler.addEventListener("click", () => {
       toggler.classList.toggle("opened");
+    });
+  }
+
+  // Handle all navigation link clicks in the offcanvas
+  const offcanvasLinks = document.querySelectorAll('.offcanvas-body li:not(.dropdown) a[href^="#"]');
+  offcanvasLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      // Close the offcanvas
+      if (offcanvasInstance) {
+        offcanvasInstance.hide();
+      }
+      
+      // Remove opened class from toggler
+      if (toggler) {
+        toggler.classList.remove("opened");
+      }
+    });
+  });
+
+  // Backup: Listen for when offcanvas actually closes
+  if (offcanvasElement) {
+    offcanvasElement.addEventListener('hidden.bs.offcanvas', () => {
+      if (toggler) {
+        toggler.classList.remove("opened");
+      }
     });
   }
 }
@@ -335,6 +364,13 @@ function initCustomSelects() {
         });
         options.classList.toggle("show-drop");
         select.classList.toggle("active");
+        
+        // Disable scrolling on body when popup is active
+        if (select.classList.contains("active")) {
+          document.body.classList.add("no-scroll");
+        } else {
+          document.body.classList.remove("no-scroll");
+        }
       });
 
       optionItems.forEach((option) => {
@@ -343,6 +379,7 @@ function initCustomSelects() {
           selected.textContent = option.textContent;
           options.classList.remove("show-drop");
           select.classList.remove("active");
+          document.body.classList.remove("no-scroll"); // Re-enable scrolling
         });
       });
     });
@@ -355,6 +392,7 @@ function initCustomSelects() {
       document.querySelectorAll(containerClass).forEach((select) => {
         select.classList.remove("active");
       });
+      document.body.classList.remove("no-scroll"); // Re-enable scrolling
     });
   };
 
@@ -375,30 +413,37 @@ function initBlogSection() {
   if (!cards.length || !toggleBtn) return;
 
   const cardsToShow = 3;
-  const transitionDuration = 800;
   const SCROLL_OFFSET = 113;
-
   let visibleCount = cardsToShow;
-  let firstLoad = true;
+
+  // Add CSS transition class to all cards
+  cards.forEach(card => {
+    card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  });
 
   const updateCardsVisibility = () => {
     cards.forEach((card, index) => {
       if (index < visibleCount) {
+        // Show card with animation
         card.style.display = "block";
-        requestAnimationFrame(() => card.classList.remove("blog-card--hidden"));
+        requestAnimationFrame(() => {
+          card.style.opacity = "1";
+          card.style.transform = "translateY(0)";
+        });
       } else {
-        if (firstLoad) {
-          card.style.display = "none";
-        } else {
-          card.classList.add("blog-card--hidden");
-          setTimeout(() => {
-            if (index >= visibleCount) card.style.display = "none";
-          }, transitionDuration);
-        }
+        // Hide card with animation
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+        // After animation completes, set display:none
+        card.addEventListener('transitionend', function handler() {
+          if (card.style.opacity === "0") {
+            card.style.display = "none";
+            card.removeEventListener('transitionend', handler);
+          }
+        }, { once: true });
       }
     });
 
-    firstLoad = false;
     toggleBtn.textContent = visibleCount >= cards.length ? "Show Less" : "Show More";
     toggleBtn.style.display = cards.length <= cardsToShow ? "none" : "inline-block";
   };
@@ -417,17 +462,23 @@ function initBlogSection() {
 
     updateCardsVisibility();
 
-    const target = cards[visibleCount - 1];
-    setTimeout(() => {
-      scrollToWithOffset(target);
-      toggleBtn.disabled = false;
-    }, transitionDuration);
+    // Scroll to the newly shown cards
+    if (expanding) {
+      const target = cards[Math.min(visibleCount - 1, cards.length - 1)];
+      setTimeout(() => {
+        scrollToWithOffset(target);
+        toggleBtn.disabled = false;
+      }, 400); // Match this with CSS transition duration
+    } else {
+      // When collapsing, scroll to the section header
+      setTimeout(() => {
+        scrollToWithOffset(container);
+        toggleBtn.disabled = false;
+      }, 400);
+    }
   });
 
   // Initial state
-  cards.forEach((card, index) => {
-    if (index >= cardsToShow) card.classList.add("blog-card--hidden");
-  });
   updateCardsVisibility();
 }
 
