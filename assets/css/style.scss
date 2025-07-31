@@ -747,7 +747,7 @@ main {
 
         &.health-img--3 {
           z-index: 2;
-          bottom: 0;
+          bottom: 30px;
           right: 0;
 
           &:hover {
@@ -2260,12 +2260,7 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   main .section-health p {
     font-size: 18px;
   }
-main .section-health .health-img-box .health-img.health-img--3 {
-    z-index: 2;
-    // bottom: 54px;
-    bottom: 0;
-    right: 0;
-}
+
   .btn {
     font-size: 16px;
     padding: 10px 25px;
@@ -3097,6 +3092,7 @@ main .section-health .health-img-box .health-img.health-img--3 {
 
   main .section-health .health-img-box .health-img.health-img--3{
     z-index: 1;
+    bottom: 0px;
   }
 }
 @media (max-width: 991.98px) {
