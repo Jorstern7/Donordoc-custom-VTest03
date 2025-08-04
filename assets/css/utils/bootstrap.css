@@ -1576,6 +1576,12 @@ progress {
     --bs-gutter-y: 3rem;
   }
 }
+@media (min-width: 834px) {
+  .col-custom-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
 @media (min-width: 992px) {
   .col-lg-auto {
     flex: 0 0 auto;
