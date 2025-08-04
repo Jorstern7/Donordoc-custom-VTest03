@@ -191,16 +191,21 @@ footer {
 }
 
 .options-popup {
-  display: none;
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(55, 178, 77, 0.2);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  background: rgba(55, 178, 77, 0);
   z-index: 1000;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
 }
 
 .options-container {
@@ -209,6 +214,8 @@ footer {
   max-height: 80vh;
   overflow-y: auto;
   border-radius: 4px;
+  transform: scale(0.9);
+  transition: transform 0.5s ease;
 }
 
 .option-popup {
@@ -216,6 +223,7 @@ footer {
   cursor: pointer;
   color: white;
   font-size: 16px;
+  transition: all 0.4s ease;
 }
 
 .option-popup:hover {
@@ -224,7 +232,13 @@ footer {
 }
 
 .custom-popup.active .options-popup {
-  display: flex;
+  opacity: 1;
+  visibility: visible;
+  background: rgba(55, 178, 77, 0.4);
+}
+
+.custom-popup.active .options-container {
+  transform: scale(1);
 }
 
 .custom-select {
