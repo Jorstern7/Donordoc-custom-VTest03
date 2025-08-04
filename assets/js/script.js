@@ -364,6 +364,42 @@ function initCustomSelects() {
         });
         options.classList.toggle("show-drop");
         select.classList.toggle("active");
+      });
+
+      optionItems.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          e.stopPropagation();
+          selected.textContent = option.textContent;
+          options.classList.remove("show-drop");
+          select.classList.remove("active");
+        });
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", () => {
+      document.querySelectorAll(optionsClass).forEach((options) => {
+        options.classList.remove("show-drop");
+      });
+      document.querySelectorAll(containerClass).forEach((select) => {
+        select.classList.remove("active");
+      });
+    });
+  };
+  // Generic select handler
+  const handleCustomPopup = (containerClass, selectedClass, optionsClass) => {
+    document.querySelectorAll(containerClass).forEach((select) => {
+      const selected = select.querySelector(selectedClass);
+      const options = select.querySelector(optionsClass);
+      const optionItems = select.querySelectorAll(".option, .option-popup");
+
+      selected.addEventListener("click", (e) => {
+        e.stopPropagation();
+        document.querySelectorAll(optionsClass).forEach((opt) => {
+          if (opt !== options) opt.classList.remove("show-drop", "active");
+        });
+        options.classList.toggle("show-drop");
+        select.classList.toggle("active");
         
         // Disable scrolling on body when popup is active
         if (select.classList.contains("active")) {
@@ -398,7 +434,7 @@ function initCustomSelects() {
 
   // Initialize different types of selects
   handleCustomSelect(".custom-select", ".selected", ".options");
-  handleCustomSelect(".custom-popup", ".popup", ".options-popup");
+  handleCustomPopup(".custom-popup", ".popup", ".options-popup");
 }
 
 /**
