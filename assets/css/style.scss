@@ -387,14 +387,14 @@ footer {
   nav {
     &.navbar-light .navbar-toggler {
       color: #d7f0db;
-      position: absolute;
+      // position: absolute;
+      // top: 27px;
+      // right: 0;
       z-index: 2000;
-      top: 27px;
-      right: 0;
       border-color: #37b24d;
       background-color: #37b24d;
-      width: 50px;
-      height: 50px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: flex;
       flex-direction: column;
@@ -405,7 +405,7 @@ footer {
 
       span {
         height: 2px;
-        width: 24px;
+        width: 22px;
         border-radius: 3px;
         background-color: #d7f0db;
         display: block;
@@ -2387,9 +2387,9 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
 }
 
 @media (max-width: 1023.98px) {
-  #header nav .navbar-brand {
-    margin-top: 13px;
-  }
+  // #header nav .navbar-brand {
+  //   margin-top: 13px;
+  // }
 
   .offcanvas-body ul li {
     margin-bottom: 10px;
@@ -2955,7 +2955,14 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   }
 
   #header nav .navbar-brand {
-    width: 50%;
+    width: 206px;
+  }
+  #header nav.navbar-light .navbar-toggler {
+    width: 40px;
+    height: 40px;
+  }
+  #header nav.navbar-light .navbar-toggler span {
+    width: 20px;
   }
 
   .btn {
@@ -3107,6 +3114,13 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   }
 }
 @media (max-width: 991.98px) {
+  #header nav.navbar-light .navbar-toggler {
+    width: 33px;
+    height: 33px;
+  }
+  #header nav.navbar-light .navbar-toggler span {
+    width: 18px;
+  }
   main .blog-section .card .row .col-5 {
     padding-right: 0px;
   }
@@ -3235,10 +3249,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
 
 // Standard phones
 @media (max-width: 424.98px) {
-  #header nav.navbar-light .navbar-toggler {
-    width: 40px;
-    height: 40px;
-  }
   main .section-health .health-img-box {
     min-height: 70px;
   }
@@ -3275,10 +3285,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
 
 // Small phones
 @media (max-width: 374.98px) {
-  #header nav.navbar-light .navbar-toggler {
-    width: 38px;
-    height: 38px;
-  }
   main .section-health .health-img-box {
     min-height: 55px;
   }
