@@ -1,3 +1,9 @@
+/* 
+Template Name: DONORDOC-B01 
+Author: FRONTLENS LLC 
+License: For personal/business use only. Redistribution, resale, or sublicensing is strictly prohibited without written consent. 
+Copyright (c) 2025 FRONTLENS LLC. All rights reserved. 
+*/
 document.addEventListener("DOMContentLoaded", function () {
   initStickyHeader();
   initMobileMenu();
