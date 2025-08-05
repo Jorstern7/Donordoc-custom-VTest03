@@ -1,9 +1,4 @@
-// ====================================================================================
-// ============================== MAIN DOCUMENT READY =================================
-// ====================================================================================
-
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialize all components
   initStickyHeader();
   initMobileMenu();
   initSwipers();
@@ -16,27 +11,18 @@ document.addEventListener("DOMContentLoaded", function () {
   initNavLinkEffects();
 });
 
-// ====================================================================================
-// ============================== COMPONENT INITIALIZERS ==============================
-// ====================================================================================
-
-/**
- * Sticky Header with Intersection Observer
- */
 function initStickyHeader() {
   const header = document.getElementById("header");
   const hero = document.querySelector(".section-health");
 
   if (!header || !hero) return;
 
-  // Set initial padding
   const updateHeroPadding = () => {
     hero.style.paddingTop = `${header.offsetHeight}px`;
   };
 
   window.addEventListener("load", updateHeroPadding);
 
-  // Intersection Observer for sticky behavior
   const obs = new IntersectionObserver(
     (entries) => {
       const [entry] = entries;
@@ -55,9 +41,6 @@ function initStickyHeader() {
   obs.observe(hero);
 }
 
-/**
- * Mobile Menu Toggle with Offcanvas Integration
- */
 function initMobileMenu() {
   const toggler = document.querySelector(".navbar-toggler");
   const offcanvasElement = document.getElementById("offcanvasNavbar");
@@ -70,23 +53,19 @@ function initMobileMenu() {
     });
   }
 
-  // Handle all navigation link clicks in the offcanvas
   const offcanvasLinks = document.querySelectorAll('.offcanvas-body li:not(.dropdown) a[href^="#"]');
   offcanvasLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-      // Close the offcanvas
       if (offcanvasInstance) {
         offcanvasInstance.hide();
       }
       
-      // Remove opened class from toggler
       if (toggler) {
         toggler.classList.remove("opened");
       }
     });
   });
 
-  // Backup: Listen for when offcanvas actually closes
   if (offcanvasElement) {
     offcanvasElement.addEventListener('hidden.bs.offcanvas', () => {
       if (toggler) {
@@ -96,11 +75,7 @@ function initMobileMenu() {
   }
 }
 
-/**
- * Initialize all Swiper instances
- */
 function initSwipers() {
-  // Header Swiper
   const headerSwiper = new Swiper(".header-swiper", {
     slidesPerView: 3,
     spaceBetween: 0,
@@ -119,7 +94,6 @@ function initSwipers() {
     },
   });
 
-  // Featured Swiper
   new Swiper(".featured-swiper", {
     slidesPerView: 4,
     spaceBetween: 0,
@@ -139,7 +113,6 @@ function initSwipers() {
     },
   });
 
-  // Doctors Swiper
   const doctorsSwiper = new Swiper(".doctors-swiper", {
     slidesPerView: 2,
     spaceBetween: 40,
@@ -163,7 +136,6 @@ function initSwipers() {
     },
   });
 
-  // Pricing Swiper
   const pricingSwiper = new Swiper(".pricing-swiper", {
     slidesPerView: 3,
     spaceBetween: 10,
@@ -187,7 +159,6 @@ function initSwipers() {
     },
   });
 
-  // Testimonials Swiper
   const testimonialsSwiper = new Swiper(".testimonial-swiper", {
     slidesPerView: 1,
     loop: true,
@@ -209,11 +180,9 @@ function initSwipers() {
     },
   });
 
-  // Setup swiper navigation autoplay triggers
   setupSwiperNavigation(doctorsSwiper, ".doctors-next", ".doctors-prev");
   setupSwiperNavigation(pricingSwiper, ".pricing-next", ".pricing-prev");
   
-  // Setup pagination bullets for testimonials
   document.querySelectorAll(".testimonial-swiper .swiper-pagination .swiper-pagination-bullet").forEach(bullet => {
     bullet.addEventListener("click", () => {
       testimonialsSwiper.autoplay.start();
@@ -221,9 +190,6 @@ function initSwipers() {
   });
 }
 
-/**
- * Flip Cards functionality
- */
 function initFlipCards() {
   const flips = document.querySelectorAll(".flip");
   if (!flips.length) return;
@@ -268,9 +234,6 @@ function initFlipCards() {
   }
 }
 
-/**
- * Back to Top Button
- */
 function initBackToTop() {
   const goTopButton = document.getElementById("up-arrow");
   if (!goTopButton) return;
@@ -287,14 +250,10 @@ function initBackToTop() {
   });
 }
 
-/**
- * Smooth Scrolling for Navigation
- */
 function initSmoothScrolling() {
   const header = document.getElementById("header");
   if (!header) return;
 
-  // Target all nav links, dropdown toggles, and also offcanvas links
   const navLinks = document.querySelectorAll(
     '.navbar-nav a[href^="#"], .offcanvas-body a[href^="#"]'
   );
@@ -307,10 +266,8 @@ function initSmoothScrolling() {
     link.addEventListener("click", function (e) {
       e.preventDefault();
 
-      // Update active states
       updateActiveStates(this, navLinks, dropdownToggles);
 
-      // Smooth scroll to the section
       const target = document.querySelector(this.getAttribute("href"));
       if (target) {
         const offsetTop = target.offsetTop - header.offsetHeight;
@@ -320,7 +277,6 @@ function initSmoothScrolling() {
         });
       }
 
-      // Close the offcanvas if open (for mobile)
       if (offcanvasInstance && offcanvasElement.classList.contains("show")) {
         offcanvasInstance.hide();
       }
@@ -328,14 +284,11 @@ function initSmoothScrolling() {
   });
 
   function updateActiveStates(clickedLink, allLinks, allToggles) {
-    // Remove 'active' from all links and dropdown toggles
     allLinks.forEach((l) => l.classList.remove("active"));
     allToggles.forEach((t) => t.classList.remove("active"));
 
-    // Add 'active' to the clicked link
     clickedLink.classList.add("active");
 
-    // If inside dropdown, activate parent toggle too
     const dropdown = clickedLink.closest(".dropdown-menu");
     if (dropdown) {
       const toggle = dropdown.previousElementSibling;
@@ -346,11 +299,7 @@ function initSmoothScrolling() {
   }
 }
 
-/**
- * Custom Select Dropdowns
- */
 function initCustomSelects() {
-  // Generic select handler
   const handleCustomSelect = (containerClass, selectedClass, optionsClass) => {
     document.querySelectorAll(containerClass).forEach((select) => {
       const selected = select.querySelector(selectedClass);
@@ -376,7 +325,6 @@ function initCustomSelects() {
       });
     });
 
-    // Close when clicking outside
     document.addEventListener("click", () => {
       document.querySelectorAll(optionsClass).forEach((options) => {
         options.classList.remove("show-drop");
@@ -386,7 +334,7 @@ function initCustomSelects() {
       });
     });
   };
-  // Generic select handler
+
   const handleCustomPopup = (containerClass, selectedClass, optionsClass) => {
     document.querySelectorAll(containerClass).forEach((select) => {
       const selected = select.querySelector(selectedClass);
@@ -401,7 +349,6 @@ function initCustomSelects() {
         options.classList.toggle("show-drop");
         select.classList.toggle("active");
         
-        // Disable scrolling on body when popup is active
         if (select.classList.contains("active")) {
           document.body.classList.add("no-scroll");
         } else {
@@ -415,12 +362,11 @@ function initCustomSelects() {
           selected.textContent = option.textContent;
           options.classList.remove("show-drop");
           select.classList.remove("active");
-          document.body.classList.remove("no-scroll"); // Re-enable scrolling
+          document.body.classList.remove("no-scroll");
         });
       });
     });
 
-    // Close when clicking outside
     document.addEventListener("click", () => {
       document.querySelectorAll(optionsClass).forEach((options) => {
         options.classList.remove("show-drop");
@@ -428,18 +374,14 @@ function initCustomSelects() {
       document.querySelectorAll(containerClass).forEach((select) => {
         select.classList.remove("active");
       });
-      document.body.classList.remove("no-scroll"); // Re-enable scrolling
+      document.body.classList.remove("no-scroll");
     });
   };
 
-  // Initialize different types of selects
   handleCustomSelect(".custom-select", ".selected", ".options");
   handleCustomPopup(".custom-popup", ".popup", ".options-popup");
 }
 
-/**
- * Blog Section with Show More/Less functionality
- */
 function initBlogSection() {
   const container = document.querySelector(".blog-section .row");
   if (!container) return;
@@ -452,7 +394,6 @@ function initBlogSection() {
   const SCROLL_OFFSET = 113;
   let visibleCount = cardsToShow;
 
-  // Add CSS transition class to all cards
   cards.forEach(card => {
     card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
   });
@@ -460,17 +401,14 @@ function initBlogSection() {
   const updateCardsVisibility = () => {
     cards.forEach((card, index) => {
       if (index < visibleCount) {
-        // Show card with animation
         card.style.display = "block";
         requestAnimationFrame(() => {
           card.style.opacity = "1";
           card.style.transform = "translateY(0)";
         });
       } else {
-        // Hide card with animation
         card.style.opacity = "0";
         card.style.transform = "translateY(20px)";
-        // After animation completes, set display:none
         card.addEventListener('transitionend', function handler() {
           if (card.style.opacity === "0") {
             card.style.display = "none";
@@ -498,15 +436,13 @@ function initBlogSection() {
 
     updateCardsVisibility();
 
-    // Scroll to the newly shown cards
     if (expanding) {
       const target = cards[Math.min(visibleCount - 1, cards.length - 1)];
       setTimeout(() => {
         scrollToWithOffset(target);
         toggleBtn.disabled = false;
-      }, 400); // Match this with CSS transition duration
+      }, 400);
     } else {
-      // When collapsing, scroll to the section header
       setTimeout(() => {
         scrollToWithOffset(container);
         toggleBtn.disabled = false;
@@ -514,15 +450,10 @@ function initBlogSection() {
     }
   });
 
-  // Initial state
   updateCardsVisibility();
 }
 
-/**
- * Dropdown Behaviors for different sections
- */
 function initDropdownBehaviors() {
-  // Navbar dropdown
   const navDropdownToggle = document.querySelector('.nav-item.dropdown .nav-link.dropdown-toggle');
   const navDropdownMenu = document.querySelector('.nav-item.dropdown .dropdown-menu');
 
@@ -538,11 +469,9 @@ function initDropdownBehaviors() {
       }
     });
 
-    // Close when clicking outside or selecting item
     setupDropdownCloseBehavior(navDropdownToggle, navDropdownMenu);
   }
 
-  // Appointment section dropdowns
   const appointmentSection = document.querySelector("#appointment-cta");
   if (appointmentSection) {
     const appointmentSelects = appointmentSection.querySelectorAll(".custom-select");
@@ -577,7 +506,6 @@ function initDropdownBehaviors() {
     });
   }
 
-  // Find Doctor section dropdown
   const findDoctorSection = document.querySelector("#find-doctor-cta");
   if (findDoctorSection) {
     const doctorSelect = findDoctorSection.querySelector(".custom-select");
@@ -605,19 +533,14 @@ function initDropdownBehaviors() {
   }
 }
 
-/**
- * Nav Link Hover Effects
- */
 function initNavLinkEffects() {
   const allLinks = document.querySelectorAll(".navbar-nav .nav-link, .navbar-nav .dropdown-item");
   const dropdown = document.querySelector(".nav-item.dropdown");
   if (!allLinks.length || !dropdown) return;
 
-  // Only apply on desktop
   if (window.innerWidth >= 992) {
     const dropdownToggle = dropdown.querySelector(".nav-link");
     
-    // Smooth transitions
     allLinks.forEach(link => {
       link.style.transition = "opacity 0.3s ease";
     });
@@ -625,15 +548,12 @@ function initNavLinkEffects() {
     const handleLinkHover = (hoveredLink) => {
       allLinks.forEach(other => {
         if (hoveredLink.classList.contains('dropdown-item')) {
-          // Case 1: Hovering a dropdown item
           other.style.opacity = 
             (other === hoveredLink || other === dropdownToggle) ? "1" : "0.3";
         } else if (hoveredLink === dropdownToggle) {
-          // Case 2: Hovering the dropdown toggle
           other.style.opacity = 
             (other === dropdownToggle || other.classList.contains('dropdown-item')) ? "1" : "0.3";
         } else {
-          // Case 3: Hovering a normal top-level nav item
           other.style.opacity = other === hoveredLink ? "1" : "0.3";
         }
       });
@@ -652,31 +572,18 @@ function initNavLinkEffects() {
   }
 }
 
-// ====================================================================================
-// ============================== HELPER FUNCTIONS ====================================
-// ====================================================================================
-
-/**
- * Scale middle slide in header swiper
- */
 function scaleMiddleSlide(swiper) {
-  // Remove from all
   swiper.slides.forEach(slide => slide.classList.remove("is-scaled"));
 
-  // Get all visible slides
   const visibleSlides = Array.from(swiper.slides).filter(slide =>
     slide.classList.contains("swiper-slide-visible")
   );
 
-  // Scale middle one only if exactly 3 are visible
   if (visibleSlides.length === 3) {
     visibleSlides[1].classList.add("is-scaled");
   }
 }
 
-/**
- * Setup swiper navigation with autoplay
- */
 function setupSwiperNavigation(swiper, nextSelector, prevSelector) {
   const nextBtn = document.querySelector(nextSelector);
   const prevBtn = document.querySelector(prevSelector);
@@ -685,9 +592,6 @@ function setupSwiperNavigation(swiper, nextSelector, prevSelector) {
   if (prevBtn) prevBtn.addEventListener("click", () => swiper.autoplay.start());
 }
 
-/**
- * Setup dropdown close behavior
- */
 function setupDropdownCloseBehavior(toggle, menu) {
   document.addEventListener('click', function (e) {
     const isClickInside = toggle.contains(e.target) || menu.contains(e.target);
@@ -700,9 +604,6 @@ function setupDropdownCloseBehavior(toggle, menu) {
   });
 }
 
-/**
- * Close all dropdowns except the specified one
- */
 function closeAllDropdowns(allDropdowns, exceptThis = null) {
   allDropdowns.forEach(select => {
     if (select !== exceptThis) {

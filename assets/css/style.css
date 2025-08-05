@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url("./utils/bootstrap.css");
 html {
   scroll-behavior: smooth;
@@ -95,13 +94,11 @@ footer {
 .btn.btn-default::before {
   left: -5px;
   background-color: #fff;
-  /* 3px */
   top: 40%;
 }
 .btn.btn-default::after {
   right: -5px;
   background-color: #fff;
-  /* 3px */
   bottom: 40%;
 }
 .btn.btn-outline {
@@ -299,18 +296,15 @@ footer {
 }
 #header-wrapper.slide-in {
   transform: translateY(0);
-  /* ensure it's visible */
 }
 #header-wrapper.sticky-top-custom {
   position: sticky;
   top: 0;
   z-index: 1000;
   transform: translateY(-100%);
-  /* start hidden */
 }
 #header-wrapper.sticky-top-custom.slide-in {
   transform: translateY(0);
-  /* slide into view */
 }
 
 #header {
@@ -320,15 +314,10 @@ footer {
 }
 #header.sticky {
   position: fixed;
-  /* Bootstrap sticky */
   top: 0;
   z-index: 1020;
   width: 100%;
   box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
-}
-#header nav {
-  /* Smooth dropdown override */
-  /* When dropdown is open (Bootstrap adds .show) */
 }
 #header nav.navbar-light .navbar-toggler {
   color: #d7f0db;
@@ -393,7 +382,7 @@ footer {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
-  display: block !important; /* Keep it always in flow for transition */
+  display: block !important;
   visibility: hidden;
   pointer-events: none;
   height: auto !important;
@@ -558,10 +547,6 @@ footer {
   }
 }
 @media (min-width: 1024px) {
-  #header nav {
-    /* Smooth dropdown override */
-    /* When dropdown is open (Bootstrap adds .show) */
-  }
   #header nav .dropdown-menu {
     opacity: 0;
     transform: translateY(10px);
@@ -660,7 +645,6 @@ main .section-featured .swiper-slide {
   align-items: center;
   justify-content: center;
   height: 40px;
-  /* ✅ Fixed height for all slides */
 }
 @media (max-width: 991.98px) {
   main .section-featured .swiper-slide {
@@ -1203,7 +1187,6 @@ main .section-pricing .card .card-header div {
   border-radius: 9px;
   z-index: 3;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-  /* Smaller "/year" text */
 }
 main .section-pricing .card .card-header div .plan-price {
   font-size: 40px;
@@ -1211,14 +1194,11 @@ main .section-pricing .card .card-header div .plan-price {
   position: relative;
   display: inline-flex;
   align-items: flex-start;
-  /* Align the dollar sign and number to the top */
 }
 main .section-pricing .card .card-header div .plan-price span {
   font-size: 16px;
   margin-right: 4px;
-  /* Add a small gap if necessary */
   line-height: 1.2;
-  /* Adjust spacing to align it better */
 }
 main .section-pricing .card .card-header div .plan-text {
   font-size: 14px;
@@ -1621,19 +1601,18 @@ main .blog-section .card .card-footer .post-info .stats svg {
   stroke-width: 1.2;
 }
 main .blog-section .blog-card {
-  /* visible */
   max-height: 1000px;
   opacity: 1;
   transform: translateY(0);
   overflow: hidden;
-  will-change: opacity, transform; /* Hint to browser for optimization */
+  will-change: opacity, transform;
   transition: max-height 0.8s ease-out, opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 main .blog-section .blog-card.blog-card--hidden {
   max-height: 0;
   opacity: 0;
   transform: translateY(-20px);
-  pointer-events: none; /* Prevent interactions with hidden cards */
+  pointer-events: none;
 }
 
 #footer .footer-section {
@@ -1765,6 +1744,22 @@ main .blog-section .blog-card.blog-card--hidden {
   visibility: visible;
 }
 
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-in {
+  opacity: 0;
+  display: block;
+  animation: fadeInAnim 0.5s ease-in forwards;
+}
+
+@keyframes fadeInAnim {
+  to {
+    opacity: 1;
+  }
+}
 @media (max-width: 1399.98px) {
   .heading-primary {
     font-size: 45px;
@@ -1945,6 +1940,47 @@ main .blog-section .blog-card.blog-card--hidden {
   main .services-section .flip .card {
     min-height: 270px;
   }
+  main .section-health .health-img-box {
+    min-height: 200px;
+    margin-top: 40px;
+  }
+  main .section-health .health-img-box .health-img.health-img--1 {
+    top: 0;
+    left: 50%;
+    bottom: auto;
+    transform: translateX(-50%);
+  }
+  main .section-health .health-img-box .health-img.health-img--1:hover {
+    transform: translateX(-50%) scale(1.1);
+    z-index: 4;
+  }
+  main .section-health .health-img-box .health-img.health-img--2 {
+    bottom: 0;
+    left: 0;
+    top: auto;
+    transform: translateX(0);
+  }
+  main .section-health .health-img-box .health-img.health-img--2:hover {
+    transform: scale(1.1);
+    z-index: 4;
+  }
+  main .section-health .health-img-box .health-img {
+    width: 350px;
+  }
+  main .section-health .health-img-box .health-img.health-img--1 {
+    height: 216.13px;
+    width: auto;
+    z-index: 3;
+  }
+  main .section-health .health-img-box .health-img.health-img--2 {
+    z-index: 2;
+    width: auto;
+    height: 216.13px;
+  }
+  main .section-health .health-img-box .health-img.health-img--3 {
+    z-index: 1;
+    bottom: 0px;
+  }
 }
 @media (max-width: 991.98px) {
   main .section-about h1,
@@ -2044,21 +2080,30 @@ main .blog-section .blog-card.blog-card--hidden {
     line-clamp: 3;
     -webkit-box-orient: vertical;
   }
-}
-.fade-out {
-  opacity: 0;
-  transition: opacity 0.5s ease-out;
-}
-
-.fade-in {
-  opacity: 0;
-  display: block;
-  animation: fadeInAnim 0.5s ease-in forwards;
-}
-
-@keyframes fadeInAnim {
-  to {
-    opacity: 1;
+  #header nav.navbar-light .navbar-toggler {
+    width: 33px;
+    height: 33px;
+  }
+  #header nav.navbar-light .navbar-toggler span {
+    width: 18px;
+  }
+  main .blog-section .card .row .col-5 {
+    padding-right: 0px;
+  }
+  main .blog-section .card .row .col-7 {
+    padding-left: 20px;
+  }
+  main .section-health .health-img-box {
+    min-height: 130px;
+  }
+  main .section-health .health-img-box .health-img {
+    width: 250px;
+  }
+  main .section-health .health-img-box .health-img.health-img--1 {
+    height: 154.38px;
+  }
+  main .section-health .health-img-box .health-img.health-img--2 {
+    height: 154.38px;
   }
 }
 @media (max-width: 799.98px) {
@@ -2089,15 +2134,15 @@ main .blog-section .blog-card.blog-card--hidden {
     height: 50px;
   }
 }
-@media (min-width: 767.98px) {
-  .visibleOnTablet {
-    display: none;
+@media (max-width: 799.98px) and (min-width: 425px) {
+  main .doctor-section .card {
+    width: 70%;
+    margin: 0 auto;
   }
-  #tabOrMobOnly {
-    display: none;
-  }
-  main .section-health .header-swiper {
-    display: none;
+  main .doctor-section .card .card-body img {
+    border-radius: 9px 9px 0 0;
+    -o-object-position: top;
+       object-position: top;
   }
 }
 @media (max-width: 767.98px) {
@@ -2249,13 +2294,20 @@ main .blog-section .blog-card.blog-card--hidden {
   main .services-section .flip .card {
     min-height: 270px;
   }
-}
-@media (min-width: 575.98px) {
-  main .section-health .header-swiper {
-    display: none;
+  main .section-health .health-img-box {
+    min-height: 110px;
+  }
+  main .section-health .health-img-box .health-img {
+    width: 200px;
+  }
+  main .section-health .health-img-box .health-img.health-img--1 {
+    height: 123.5px;
+  }
+  main .section-health .health-img-box .health-img.health-img--2 {
+    height: 123.5px;
   }
 }
-@media screen and (max-width: 576.98px) {
+@media (max-width: 576.98px) {
   .heading-primary {
     font-size: 28px;
   }
@@ -2370,115 +2422,6 @@ main .blog-section .blog-card.blog-card--hidden {
     padding: 10px 20px;
   }
 }
-@media (max-width: 450.98px) {
-  #header nav .offcanvas .offcanvas-header {
-    padding: 1rem;
-  }
-  #header nav .offcanvas .offcanvas-header .logo-link img {
-    width: 50%;
-  }
-}
-@media (max-width: 374.98px) {
-  #up-arrow {
-    right: 10px;
-    height: 50px;
-  }
-}
-@media (max-width: 1023.98px) {
-  main .section-health .health-img-box {
-    min-height: 200px;
-    margin-top: 40px;
-  }
-  main .section-health .health-img-box .health-img.health-img--1 {
-    top: 0;
-    left: 50%;
-    bottom: auto;
-    transform: translateX(-50%);
-  }
-  main .section-health .health-img-box .health-img.health-img--1:hover {
-    transform: translateX(-50%) scale(1.1);
-    z-index: 4;
-  }
-  main .section-health .health-img-box .health-img.health-img--2 {
-    bottom: 0;
-    left: 0;
-    top: auto;
-    transform: translateX(0);
-  }
-  main .section-health .health-img-box .health-img.health-img--2:hover {
-    transform: scale(1.1);
-    z-index: 4;
-  }
-  main .section-health .health-img-box .health-img {
-    width: 350px;
-  }
-  main .section-health .health-img-box .health-img.health-img--1 {
-    height: 216.13px;
-    width: auto;
-    z-index: 3;
-  }
-  main .section-health .health-img-box .health-img.health-img--2 {
-    z-index: 2;
-    width: auto;
-    height: 216.13px;
-  }
-  main .section-health .health-img-box .health-img.health-img--3 {
-    z-index: 1;
-    bottom: 0px;
-  }
-}
-@media (max-width: 991.98px) {
-  #header nav.navbar-light .navbar-toggler {
-    width: 33px;
-    height: 33px;
-  }
-  #header nav.navbar-light .navbar-toggler span {
-    width: 18px;
-  }
-  main .blog-section .card .row .col-5 {
-    padding-right: 0px;
-  }
-  main .blog-section .card .row .col-7 {
-    padding-left: 20px;
-  }
-  main .section-health .health-img-box {
-    min-height: 130px;
-  }
-  main .section-health .health-img-box .health-img {
-    width: 250px;
-  }
-  main .section-health .health-img-box .health-img.health-img--1 {
-    height: 154.38px;
-  }
-  main .section-health .health-img-box .health-img.health-img--2 {
-    height: 154.38px;
-  }
-}
-@media (max-width: 799.98px) and (min-width: 425px) {
-  main .doctor-section .card {
-    width: 70%;
-    margin: 0 auto;
-  }
-  main .doctor-section .card .card-body img {
-    border-radius: 9px 9px 0 0;
-    -o-object-position: top;
-       object-position: top;
-  }
-}
-@media (max-width: 767.98px) {
-  main .section-health .health-img-box {
-    min-height: 110px;
-  }
-  main .section-health .health-img-box .health-img {
-    width: 200px;
-  }
-  main .section-health .health-img-box .health-img.health-img--1 {
-    height: 123.5px;
-  }
-  main .section-health .health-img-box .health-img.health-img--2 {
-    height: 123.5px;
-  }
-}
 @media (max-width: 519.98px) {
   main .section-health .health-img-box {
     min-height: 90px;
@@ -2491,6 +2434,14 @@ main .blog-section .blog-card.blog-card--hidden {
   }
   main .section-health .health-img-box .health-img.health-img--2 {
     height: 105px;
+  }
+}
+@media (max-width: 450.98px) {
+  #header nav .offcanvas .offcanvas-header {
+    padding: 1rem;
+  }
+  #header nav .offcanvas .offcanvas-header .logo-link img {
+    width: 50%;
   }
 }
 @media (max-width: 424.98px) {
@@ -2521,6 +2472,10 @@ main .blog-section .blog-card.blog-card--hidden {
   }
 }
 @media (max-width: 374.98px) {
+  #up-arrow {
+    right: 10px;
+    height: 50px;
+  }
   main .section-health .health-img-box {
     min-height: 55px;
   }
@@ -2537,8 +2492,24 @@ main .blog-section .blog-card.blog-card--hidden {
     width: 100%;
   }
 }
-@media screen and (min-width: 1400px) {
+@media (min-width: 1400px) {
   main .section-health {
     padding-top: 140px !important;
+  }
+}
+@media (min-width: 767.98px) {
+  .visibleOnTablet {
+    display: none;
+  }
+  #tabOrMobOnly {
+    display: none;
+  }
+  main .section-health .header-swiper {
+    display: none;
+  }
+}
+@media (min-width: 575.98px) {
+  main .section-health .header-swiper {
+    display: none;
   }
 }/*# sourceMappingURL=style.css.map */

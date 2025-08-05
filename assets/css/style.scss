@@ -1,9 +1,6 @@
 @import url("./utils/bootstrap.css");
 
 html {
-  // font-size: 62.5%;
-  // overflow-x: hidden;
-
   scroll-behavior: smooth;
 }
 
@@ -106,14 +103,12 @@ footer {
     &::before {
       left: -5px;
       background-color: #fff;
-      /* 3px */
       top: 40%;
     }
 
     &::after {
       right: -5px;
       background-color: #fff;
-      /* 3px */
       bottom: 40%;
     }
   }
@@ -342,7 +337,6 @@ footer {
 
   &.slide-in {
     transform: translateY(0);
-    /* ensure it's visible */
   }
 
   &.sticky-top-custom {
@@ -350,26 +344,12 @@ footer {
     top: 0;
     z-index: 1000;
     transform: translateY(-100%);
-
-    /* start hidden */
     &.slide-in {
       transform: translateY(0);
-      /* slide into view */
     }
   }
 }
 
-// .transition {
-//   transition: transform 0.3s ease, top 0.3s ease;
-// }
-
-// .slide-in {
-//   transform: translateY(0);
-// }
-
-// .slide-out {
-//   transform: translateY(-100%);
-// }
 #header {
   transition: all 0.3s ease;
   z-index: 9999;
@@ -377,7 +357,6 @@ footer {
 
   &.sticky {
     position: fixed;
-    /* Bootstrap sticky */
     top: 0;
     z-index: 1020;
     width: 100%;
@@ -387,9 +366,6 @@ footer {
   nav {
     &.navbar-light .navbar-toggler {
       color: #d7f0db;
-      // position: absolute;
-      // top: 27px;
-      // right: 0;
       z-index: 2000;
       border-color: #37b24d;
       background-color: #37b24d;
@@ -437,11 +413,8 @@ footer {
       left: 0;
       margin-top: 10px;
       background-color: #37b24d;
-      // color: white;
-      // background-color: white;
       border-radius: 4px;
       padding: 10px 10px 10px 0px;
-      // height: 0;
       transition: all 2s ease ;
       min-width: auto;
       padding-right: 0;
@@ -449,20 +422,13 @@ footer {
       li {
         a {
           color: white;
-          // color: #333;;
-          // width: auto;
-          
-          
-          
           &:hover {
             color: #37b24d;
-            // background-color: #d7f0db;
             background-color: white;
             font-weight: 500;
           }
           &:active {
             color: #37b24d;
-            // background-color: #d7f0db;
             background-color: white;
             font-weight: 500;
           }
@@ -470,26 +436,22 @@ footer {
       }
     }
 
-    
-    /* Smooth dropdown override */
     .dropdown-menu {
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.3s ease, transform 0.3s ease;
-      display: block !important; /* Keep it always in flow for transition */
+      display: block !important;
       visibility: hidden;
       pointer-events: none;
       height: auto !important;
     }
 
-    /* When dropdown is open (Bootstrap adds .show) */
     .dropdown-menu.show {
       opacity: 1;
       transform: translateY(0);
       visibility: visible;
       pointer-events: auto;
     }
-
 
     ul:not(.dropdown-menu) {
       gap: 30px;
@@ -514,14 +476,12 @@ footer {
             height: 5px;
             width: 0;
             background-color: #37b24d;
-            // background-color: #37b24e91;
             transition: all 0.5s ease-in-out;
           }
 
           &.active,
           &:hover {
             color: #37b24d;
-            // color: #37b24e91;
 
             &::before {
               width: 100%;
@@ -561,7 +521,6 @@ footer {
     }
 
     .offcanvas {
-      // background-color: #d7f0db;
       backdrop-filter: blur(5px);
       background-color: #d7f0dbd1;
 
@@ -680,15 +639,12 @@ footer {
         
         &.show {
           display: block !important;
-          // Add collapse animation
           animation: fadeIn 0.3s ease;
         }
       }
     }
 
-    // Keep desktop transition
     @media (min-width: 1024px) {
-      /* Smooth dropdown override */
       .dropdown-menu {
         opacity: 0;
         transform: translateY(10px);
@@ -699,7 +655,6 @@ footer {
         height: auto !important;
       }
 
-      /* When dropdown is open (Bootstrap adds .show) */
       .dropdown-menu.show {
         opacity: 1;
         transform: translateY(0);
@@ -813,7 +768,6 @@ main {
         height: 30px;
       }
 
-      /* ✅ Fixed height for all slides */
       a {
         display: flex;
         align-items: center;
@@ -945,7 +899,6 @@ main {
       margin-bottom: 30px;
       transform-style: preserve-3d;
 
-      // Firefox-specific fixes
       @-moz-document url-prefix() {
         overflow: visible;
         backface-visibility: hidden;
@@ -971,7 +924,6 @@ main {
         cursor: pointer;
         position: relative;
 
-        // Firefox-specific fixes
         @-moz-document url-prefix() {
           backface-visibility: hidden;
           transform: translate3d(0,0,0);
@@ -996,7 +948,6 @@ main {
           transform-style: preserve-3d;
           background-color: white;
 
-          // Firefox-specific fixes
           @-moz-document url-prefix() {
             will-change: transform;
           }
@@ -1008,8 +959,6 @@ main {
           }
 
           &.front {
-            // position: absolute;
-            // width: 100%;
             z-index: 2;
             transform: rotateY(0deg);
 
@@ -1039,10 +988,7 @@ main {
           &.back {
             -webkit-transform: rotatey(180deg);
             transform: rotatey(180deg);
-            // position: absolute;
-            // width: 100%;
             z-index: 1;
-            // backface-visibility: hidden; // Explicitly set
 
             @-moz-document url-prefix() {
               opacity: 1;
@@ -1220,48 +1166,46 @@ main {
     padding: 90px 0;
     background-color: #d7f0db;
 
-
-
     .options {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 4px;
-  right: 0;
-  background-color: #37b24d;
-  border-radius: 4px;
-  display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 4px;
+      right: 0;
+      background-color: #37b24d;
+      border-radius: 4px;
+      display: none;
 
-  font-size: 16px;
-  z-index: 5;
-  padding: 5px 0;
+      font-size: 16px;
+      z-index: 5;
+      padding: 5px 0;
 
-  border-radius: 4px;
-  display: block;
-   opacity: 0;
-   max-height: 0px;
-  visibility: hidden;
-  transition: all 1s ease-in-out;
+      border-radius: 4px;
+      display: block;
+      opacity: 0;
+      max-height: 0px;
+      visibility: hidden;
+      transition: all 1s ease-in-out;
 
-}
-.options.show-drop{
-  opacity: 1;
-  visibility: visible;
-  max-height: 140px;
+    }
+    .options.show-drop{
+      opacity: 1;
+      visibility: visible;
+      max-height: 140px;
 
-}
-.options.hide-drop{
-  opacity: 0;
-  visibility: hidden;
-}
+    }
+    .options.hide-drop{
+      opacity: 0;
+      visibility: hidden;
+    }
 
-.option {
-  padding: 10px;
-  cursor: pointer;
-  color: white;
+    .option {
+      padding: 10px;
+      cursor: pointer;
+      color: white;
 
-  font-size: 16px;
-}
+      font-size: 16px;
+    }
 
     .btn-outline {
       width: 215px;
@@ -1457,17 +1401,13 @@ main {
             display: inline-flex;
             align-items: flex-start;
 
-            /* Align the dollar sign and number to the top */
             span {
               font-size: 16px;
               margin-right: 4px;
-              /* Add a small gap if necessary */
               line-height: 1.2;
-              /* Adjust spacing to align it better */
             }
           }
 
-          /* Smaller "/year" text */
           .plan-text {
             font-size: 14px;
             display: inline-flex;
@@ -1533,7 +1473,6 @@ main {
     }
 
     .card {
-      // border: 0;
       background-color: #f1f3f5;
       border-radius: 9px;
 
@@ -1602,9 +1541,6 @@ main {
     padding: 50px 0;
     background-color: #d7f0db;
 
-
-    
-
     h1,
     p {
       text-align: center;
@@ -1629,8 +1565,6 @@ main {
     }
 
     .findDocform {
-      // width: 70%;
-      // margin: 0 auto;
       margin-top: 30px;
       border-radius: 9px;
 
@@ -1647,11 +1581,9 @@ main {
         background-color: #37b24d;
         border-radius: 4px;
         display: none;
-
         font-size: 16px;
         z-index: 5;
         padding: 5px 0;
-
         border-radius: 4px;
         display: block;
         opacity: 0;
@@ -1691,9 +1623,6 @@ main {
         }
       }
 
-      // .form-select {
-      //   border-radius: 9px 0 0 9px;
-      // }
       .btn-submit,
       input[type="submit"] {
         background-color: #37b24d;
@@ -1848,237 +1777,123 @@ main {
     }
   }
 
-  // .blog-section {
-  //   padding: 50px 0;
+  $blog-transition: 0.8s;
 
-  //   h1,
-  //   p {
-  //     text-align: center;
-  //   }
+  .blog-section {
+    padding: 50px 0;
 
-  //   p {
-  //     font-size: 20px;
-  //     line-height: 1.6;
-  //     margin-bottom: 14px;
-
-  //     &.heading-four {
-  //       font-size: 24px;
-  //     }
-  //   }
-
-  //   h1 {
-  //     font-size: 35px;
-  //     line-height: 1.05;
-  //     margin-bottom: 32px;
-  //     color: #333;
-  //     font-weight: bold;
-  //   }
-
-  //   .card {
-  //     background-color: #fff;
-  //     border-radius: 9px;
-
-  //     .card-body {
-  //       padding: 20px;
-  //       display: flex;
-  //       flex-direction: column;
-  //       gap: 20px;
-
-  //       h4 {
-  //         font-size: 24px;
-  //         text-align: left;
-  //         color: #333;
-  //         font-weight: bold;
-  //       }
-
-  //       p {
-  //         font-size: 16px;
-  //         line-height: 1.6;
-  //         margin-bottom: 0;
-  //         color: #666;
-  //         text-align: left;
-  //       }
-  //     }
-
-  //     .card-footer {
-  //       align-items: center;
-  //       display: flex;
-  //       justify-content: space-between;
-  //       padding: 10px 20px;
-  //       border-top: 1px solid #ccc;
-  //       background-color: #fff;
-  //       border-radius: 0 0 9px 9px;
-
-  //       .post-author {
-  //         gap: 10px;
-  //         display: flex;
-  //         align-items: center;
-
-  //         img {
-  //           width: 60px;
-  //           height: 60px;
-  //           border-radius: 50%;
-  //           overflow: hidden;
-  //           border: 2px solid #ddd;
-  //           object-fit: cover;
-  //         }
-
-  //         h6 {
-  //           font-size: 14px;
-  //           margin-bottom: 0;
-  //           color: #555;
-  //         }
-  //       }
-
-  //       .post-info {
-  //         display: flex;
-  //         gap: 20px;
-
-  //         .stats {
-  //           font-size: 12px;
-
-  //           svg {
-  //             color: #37b24d;
-  //             // margin-right: 0.5rem;
-  //             stroke-width: 1.2;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
-
-$blog-transition: 0.8s; // keep in sync with JS (800 ms)
-
-.blog-section {
-  padding: 50px 0;
-
-  h1,
-  p {
-    text-align: center;
-  }
-
-  p {
-    font-size: 20px;
-    line-height: 1.6;
-    margin-bottom: 14px;
-
-    &.heading-four {
-      font-size: 24px;
+    h1,
+    p {
+      text-align: center;
     }
-  }
 
-  h1 {
-    font-size: 35px;
-    line-height: 1.05;
-    margin-bottom: 32px;
-    color: #333;
-    font-weight: bold;
-  }
+    p {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 14px;
 
-  // ------------------------------------------------------------------
-  //  Card
-  // ------------------------------------------------------------------
-  .card {
-    background-color: #fff;
-    border-radius: 9px;
-
-    .card-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      h4 {
+      &.heading-four {
         font-size: 24px;
-        text-align: left;
-        color: #333;
-        font-weight: bold;
-      }
-
-      p {
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 0;
-        color: #666;
-        text-align: left;
       }
     }
 
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      border-top: 1px solid #ccc;
+    h1 {
+      font-size: 35px;
+      line-height: 1.05;
+      margin-bottom: 32px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .card {
       background-color: #fff;
-      border-radius: 0 0 9px 9px;
+      border-radius: 9px;
 
-      .post-author {
+      .card-body {
+        padding: 20px;
         display: flex;
-        align-items: center;
-        gap: 10px;
-
-        img {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          object-fit: cover;
-          border: 2px solid #ddd;
-        }
-
-        h6 {
-          font-size: 14px;
-          margin: 0;
-          color: #555;
-        }
-      }
-
-      .post-info {
-        display: flex;
+        flex-direction: column;
         gap: 20px;
 
-        .stats {
-          font-size: 12px;
+        h4 {
+          font-size: 24px;
+          text-align: left;
+          color: #333;
+          font-weight: bold;
+        }
 
-          svg {
-            color: #37b24d;
-            stroke-width: 1.2;
+        p {
+          font-size: 16px;
+          line-height: 1.6;
+          margin-bottom: 0;
+          color: #666;
+          text-align: left;
+        }
+      }
+
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        border-top: 1px solid #ccc;
+        background-color: #fff;
+        border-radius: 0 0 9px 9px;
+
+        .post-author {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+          }
+
+          h6 {
+            font-size: 14px;
+            margin: 0;
+            color: #555;
+          }
+        }
+
+        .post-info {
+          display: flex;
+          gap: 20px;
+
+          .stats {
+            font-size: 12px;
+
+            svg {
+              color: #37b24d;
+              stroke-width: 1.2;
+            }
           }
         }
       }
     }
-  }
 
-  // ------------------------------------------------------------------
-  //  Show / hide behaviour
-  // ------------------------------------------------------------------
-  .blog-card {
-    /* visible */
-    max-height: 1000px; // greater than any card’s height
-    opacity: 1;
-    transform: translateY(0);
-    overflow: hidden;
-    will-change: opacity, transform; /* Hint to browser for optimization */
-    transition: max-height $blog-transition ease-out,
-                opacity     $blog-transition ease-out,
-                transform   $blog-transition ease-out;
+    .blog-card {
+      max-height: 1000px;
+      opacity: 1;
+      transform: translateY(0);
+      overflow: hidden;
+      will-change: opacity, transform;
+      transition: max-height $blog-transition ease-out,
+                  opacity     $blog-transition ease-out,
+                  transform   $blog-transition ease-out;
 
-    &.blog-card--hidden {
-      max-height: 0;
-      opacity: 0;
-      transform: translateY(-20px);
-      pointer-events: none; /* Prevent interactions with hidden cards */
+      &.blog-card--hidden {
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-20px);
+        pointer-events: none;
+      }
     }
   }
-}
-
-
-
-
-
-
 }
 
 #footer {
@@ -2196,12 +2011,10 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   bottom: 90px;
   right: 40px;
   width: 50px;
-  // height: 80px;
   height: 50px;
   background-color: #37b24d;
   border: 1px solid #37b24d;
   color: #fff;
-  // border-radius: 25px 25px 0 0;
   border-radius: 100px;
   display: flex;
   align-items: center;
@@ -2234,6 +2047,24 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
     visibility: visible;
   }
 }
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-in {
+  opacity: 0;
+  display: block;
+  animation: fadeInAnim 0.5s ease-in forwards;
+}
+
+@keyframes fadeInAnim {
+  to {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 1399.98px) {
   .heading-primary {
     font-size: 45px;
@@ -2388,10 +2219,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
 }
 
 @media (max-width: 1023.98px) {
-  // #header nav .navbar-brand {
-  //   margin-top: 13px;
-  // }
-
   .offcanvas-body ul li {
     margin-bottom: 10px;
   }
@@ -2469,6 +2296,56 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   main .services-section .flip .card {
     min-height: 270px;
   }
+
+  main .section-health .health-img-box {
+    min-height: 200px;
+    margin-top: 40px;
+  }
+
+  main .section-health .health-img-box .health-img.health-img--1 {
+    top: 0;
+    left: 50%;
+    bottom: auto;
+    transform: translateX(-50%);
+
+    &:hover {
+      transform: translateX(-50%) scale(1.1);
+      z-index: 4;
+    }
+  }
+
+  main .section-health .health-img-box .health-img.health-img--2 {
+    bottom: 0;
+    left: 0;
+    top: auto;
+
+    transform: translateX(0);
+    &:hover {
+      transform: scale(1.1);
+      z-index: 4;
+    }
+  }
+
+  main .section-health .health-img-box .health-img {
+    width: 350px;
+  }
+
+  main .section-health .health-img-box .health-img.health-img--1{
+    height: 216.13px;
+    width: auto;
+    z-index: 3;
+  }
+
+  main .section-health .health-img-box .health-img.health-img--2{
+    z-index: 2;
+    width: auto;
+    height: 216.13px;
+  }
+
+  main .section-health .health-img-box .health-img.health-img--3{
+    z-index: 1;
+    bottom: 0px;
+  }
 }
 
 @media (max-width: 991.98px) {
@@ -2514,7 +2391,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   main .blog-section p.heading-four,
   main .blog-section .card .card-body h4 {
     font-size: 16px;
-    // margin-bottom: 10px;
   }
 
   main .section-about,
@@ -2543,10 +2419,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   #footer .footer-section .heading-four {
     margin: 20px 0 15px;
   }
-
-  // div#navbarSupportedContent {
-  //   margin: 10px 0;
-  // }
 
   #header nav ul:not(.dropdown-menu)>li>a.btn {
     width: 100%;
@@ -2594,22 +2466,34 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
     line-clamp: 3;
     -webkit-box-orient: vertical;
   }
-}
+  #header nav.navbar-light .navbar-toggler {
+    width: 33px;
+    height: 33px;
+  }
+  #header nav.navbar-light .navbar-toggler span {
+    width: 18px;
+  }
+  main .blog-section .card .row .col-5 {
+    padding-right: 0px;
+  }
+  main .blog-section .card .row .col-7 {
+    padding-left: 20px;
+  }
 
-.fade-out {
-  opacity: 0;
-  transition: opacity 0.5s ease-out;
-}
+  main .section-health .health-img-box {
+    min-height: 130px;
+  }
 
-.fade-in {
-  opacity: 0;
-  display: block;
-  animation: fadeInAnim 0.5s ease-in forwards;
-}
+  main .section-health .health-img-box .health-img {
+    width: 250px;
+  }
 
-@keyframes fadeInAnim {
-  to {
-    opacity: 1;
+  main .section-health .health-img-box .health-img.health-img--1{
+    height: 154.38px;
+  }
+
+  main .section-health .health-img-box .health-img.health-img--2{
+    height: 154.38px;
   }
 }
 
@@ -2648,21 +2532,15 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   }
 }
 
-@media (min-width: 767.98px) {
-  .visibleOnTablet {
-    display: none;
+@media (max-width: 799.98px) and (min-width: 425px) {
+  main .doctor-section .card {
+    width: 70%;
+    margin: 0 auto;
   }
 
-  #tabOrMobOnly {
-    display: none;
-  }
-
-  // .card-body.back .learn-more-btn {
-  //   display: none; 
-  // }
-
-  main .section-health .header-swiper {
-    display: none;
+  main .doctor-section .card .card-body img {
+    border-radius: 9px 9px 0 0;
+    object-position: top;
   }
 }
 
@@ -2670,9 +2548,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   #header nav .navbar-brand {
     width: 40%;
   }
-  // main .services-section .flip .card .card-body.front .learn-more-btn {
-  //   display: none !important;
-  // }
 
   .offcanvas-body ul li {
     margin-bottom: 10px;
@@ -2705,12 +2580,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
     transition: 0.5s all;
   }
 
-  //   .navbar-collapse {
-  //     position: absolute;
-  //     top: 45px;
-  //     width: 100%;
-  //     background: #fff;
-  // }
   main .section-about .card-body {
     padding: 10px 10px 10px 0;
   }
@@ -2742,14 +2611,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
     margin-bottom: 20px;
   }
 
-  // #footer .footer-section ul {
-  //     margin: 0 auto;
-  //     width: max-content;
-  // }
-
-  // #footer .footer-section ul li a {
-  //     width: max-content;
-  // }
   main .appointment-form-section .custom-form {
     background: transparent;
     box-shadow: none;
@@ -2824,16 +2685,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
     width: max-content;
   }
 
-  // #footer .footer-section .heading-four {
-  //   text-align: left;
-  // }
-  // #footer .footer-section p {
-  //   text-align: center;
-  // }
-  // #footer .footer-section ul li a,
-  // #footer .footer-section ul {
-  //   justify-content: center;
-  // }
   main .section-pricing .container:before {
     height: 25%;
   }
@@ -2846,9 +2697,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
     width: 70%;
   }
 
-  // main .section-health .health-img-box .health-img {
-  //   width: 100%;
-  // }
   main .blog-section .card .card-body {
     gap: 10px;
   }
@@ -2857,12 +2705,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
     text-align: left;
   }
 
-  // #footer .footer-section #newsletterform .btn-submit,
-  // #footer .footer-section #newsletterform input[type="submit"],
-  // #footer .footer-section #newsletterform .form-control,
-  // #footer .footer-section #newsletterform .form-select {
-  //   border-radius: 9px;
-  // }
   main .doctor-section .card {
     width: 70%;
     margin: 0 auto;
@@ -2884,15 +2726,24 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   main .services-section .flip .card {
     min-height: 270px;
   }
-}
+  main .section-health .health-img-box {
+    min-height: 110px;
+  }
 
-@media (min-width: 575.98px) {
-  main .section-health .header-swiper {
-    display: none;
+  main .section-health .health-img-box .health-img {
+    width: 200px;
+  }
+
+  main .section-health .health-img-box .health-img.health-img--1{
+    height: 123.5px;
+  }
+
+  main .section-health .health-img-box .health-img.health-img--2{
+    height: 123.5px;
   }
 }
 
-@media screen and (max-width: 576.98px) {
+@media (max-width: 576.98px) {
   .heading-primary {
     font-size: 28px;
   }
@@ -3047,191 +2898,6 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   // }
 }
 
-@media (max-width: 450.98px) {
-  #header nav .offcanvas .offcanvas-header {
-    padding: 1rem;
-  }
-
-  #header nav .offcanvas .offcanvas-header .logo-link img {
-    width: 50%;
-  }
-}
-
-@media (max-width: 374.98px) {
-  #up-arrow {
-    right: 10px;
-    height: 50px;
-  }
-}
-
-// Large Phones
-@media (max-width: 1023.98px) {
-  main .section-health .health-img-box {
-    min-height: 200px;
-    margin-top: 40px;
-  }
-
-  main .section-health .health-img-box .health-img.health-img--1 {
-    top: 0;
-    left: 50%;
-    bottom: auto;
-    transform: translateX(-50%);
-
-    &:hover {
-      transform: translateX(-50%) scale(1.1);
-      z-index: 4;
-    }
-  }
-
-  main .section-health .health-img-box .health-img.health-img--2 {
-    bottom: 0;
-    left: 0;
-    top: auto;
-
-    transform: translateX(0);
-    &:hover {
-      transform: scale(1.1);
-      z-index: 4;
-    }
-  }
-
-  main .section-health .health-img-box .health-img {
-    width: 350px;
-  }
-
-  main .section-health .health-img-box .health-img.health-img--1{
-    height: 216.13px;
-    width: auto;
-    z-index: 3;
-  }
-
-  main .section-health .health-img-box .health-img.health-img--2{
-    z-index: 2;
-    width: auto;
-    height: 216.13px;
-  }
-
-  main .section-health .health-img-box .health-img.health-img--3{
-    z-index: 1;
-    bottom: 0px;
-  }
-}
-@media (max-width: 991.98px) {
-  #header nav.navbar-light .navbar-toggler {
-    width: 33px;
-    height: 33px;
-  }
-  #header nav.navbar-light .navbar-toggler span {
-    width: 18px;
-  }
-  main .blog-section .card .row .col-5 {
-    padding-right: 0px;
-  }
-  main .blog-section .card .row .col-7 {
-    padding-left: 20px;
-  }
-
-  main .section-health .health-img-box {
-    min-height: 130px;
-  }
-
-  main .section-health .health-img-box .health-img {
-    width: 250px;
-  }
-
-  main .section-health .health-img-box .health-img.health-img--1{
-    height: 154.38px;
-  }
-
-  main .section-health .health-img-box .health-img.health-img--2{
-    height: 154.38px;
-  }
-}
-@media (max-width: 799.98px) and (min-width: 425px) {
-  // .arrow-btn.doctors-nav button {
-  //   position: absolute;
-  //   top: var(--swiper-navigation-top-offset, 50%);
-  //   margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
-  //   z-index: 999999;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  // }
-
-  // .arrow-btn.doctors-nav button.left-btn {
-  //   left: 0;
-  //   right: auto;
-  // }
-
-  // .arrow-btn.doctors-nav button.right-btn {
-  //   right: 0;
-  //   left: auto;
-  // }
-
-  // .arrow-btn.doctors-nav button {
-  //   background-color: #37b24d;
-  // }
-
-  // .arrow-btn.doctors-nav button svg {
-  //   color: #fff;
-  // }
-
-  main .doctor-section .card {
-    width: 70%;
-    margin: 0 auto;
-  }
-
-  main .doctor-section .card .card-body img {
-    border-radius: 9px 9px 0 0;
-    object-position: top;
-  }
-}
-@media (max-width: 767.98px) and (min-width: 425px) {
-  // .arrow-btn button {
-  //   position: absolute;
-  //   top: var(--swiper-navigation-top-offset, 50%);
-  //   margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
-  //   z-index: 999999;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  // }
-
-  // .arrow-btn button.left-btn {
-  //   left: 0;
-  //   right: auto;
-  // }
-
-  // .arrow-btn button.right-btn {
-  //   right: 0;
-  //   left: auto;
-  // }
-  
-  // .arrow-btn button {
-  //   background-color: #37b24d;
-  // }
-
-  // .arrow-btn button svg {
-  //   color: #fff;
-  // }
-}
-@media (max-width: 767.98px) {
-  main .section-health .health-img-box {
-    min-height: 110px;
-  }
-
-  main .section-health .health-img-box .health-img {
-    width: 200px;
-  }
-
-  main .section-health .health-img-box .health-img.health-img--1{
-    height: 123.5px;
-  }
-
-  main .section-health .health-img-box .health-img.health-img--2{
-    height: 123.5px;
-  }
-}
 @media (max-width: 519.98px) {
   main .section-health .health-img-box {
     min-height: 90px;
@@ -3250,7 +2916,16 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   }
 }
 
-// Standard phones
+@media (max-width: 450.98px) {
+  #header nav .offcanvas .offcanvas-header {
+    padding: 1rem;
+  }
+
+  #header nav .offcanvas .offcanvas-header .logo-link img {
+    width: 50%;
+  }
+}
+
 @media (max-width: 424.98px) {
   main .section-health .health-img-box {
     min-height: 70px;
@@ -3286,8 +2961,12 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   }
 }
 
-// Small phones
 @media (max-width: 374.98px) {
+  #up-arrow {
+    right: 10px;
+    height: 50px;
+  }
+
   main .section-health .health-img-box {
     min-height: 55px;
   }
@@ -3309,30 +2988,28 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
   }
 }
 
-@media screen and (min-width:1400px){
+@media (min-width:1400px){
   main .section-health {
     padding-top: 140px !important;
   }
 }
 
-  // .custom-select .options {
-  //     /* Initial hidden state properties for animation */
-  //     max-height: 0;           /* Collapsed height */
-  //     opacity: 0;              /* Fully transparent */
-  //     overflow: hidden;        /* Hides content that exceeds max-height */
-  //     transform: translateY(10px); /* Starts 10px below its final position */
-      
-  //     /* Define the transition for these properties */
-  //     transition: max-height 0.3s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out;
+@media (min-width: 767.98px) {
+  .visibleOnTablet {
+    display: none;
+  }
 
-  //     /* Added to visually hide content when not 'show' */
-  //     visibility: hidden; 
-  //   }
+  #tabOrMobOnly {
+    display: none;
+  }
 
-  //   .custom-select .options.show {
-  //     /* Target visible state properties */
-  //     max-height: 200px; /* Needs to be a value large enough to show all options */
-  //     opacity: 1;              /* Fully opaque */
-  //     transform: translateY(0); /* Moves to its original position */
-  //     visibility: visible; /* Make visible when 'show' class is present */
-  //   }
+  main .section-health .header-swiper {
+    display: none;
+  }
+}
+
+@media (min-width: 575.98px) {
+  main .section-health .header-swiper {
+    display: none;
+  }
+}
