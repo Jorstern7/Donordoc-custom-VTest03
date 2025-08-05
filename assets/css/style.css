@@ -893,6 +893,7 @@ main .services-section .flip .card .card-body.back .service-box-info {
   margin-bottom: 10px;
   border-radius: 0;
   flex-direction: row;
+  gap: 4px;
   justify-content: space-between;
   align-items: center;
   padding: 20px 20px;
@@ -2040,6 +2041,7 @@ main .blog-section .blog-card.blog-card--hidden {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
   }
 }
@@ -2200,6 +2202,7 @@ main .blog-section .blog-card.blog-card--hidden {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
   }
   main .appointment-form-section p {

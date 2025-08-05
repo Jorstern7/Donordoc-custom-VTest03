@@ -1076,6 +1076,7 @@ main {
               margin-bottom: 10px;
               border-radius: 0;
               flex-direction: row;
+              gap: 4px;
               justify-content: space-between;
               align-items: center;
               padding: 20px 20px;
@@ -2590,6 +2591,7 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
   }
 }
@@ -2805,6 +2807,7 @@ $blog-transition: 0.8s; // keep in sync with JS (800 ms)
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
   }
 
