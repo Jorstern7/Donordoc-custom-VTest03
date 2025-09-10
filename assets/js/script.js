@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initSwipers();
   initFlipCards();
   initBackToTop();
-  initSmoothScrolling();
+  // initSmoothScrolling();
   initCustomSelects();
   initBlogSection();
   initDropdownBehaviors();
