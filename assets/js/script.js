@@ -4,6 +4,30 @@ Author: FRONTLENS LLC
 License: For personal/business use only. Redistribution, resale, or sublicensing is strictly prohibited without written consent. 
 Copyright (c) 2025 FRONTLENS LLC. All rights reserved. 
 */
+// Preloader: show secondary background with primary-colored spinner until all assets are loaded
+(function initPreloader() {
+  try {
+    const body = document.body;
+    if (!body) return;
+    body.classList.add("loading");
+
+    const preloader = document.createElement("div");
+    preloader.id = "preloader";
+    preloader.innerHTML = '<div class="preloader-spinner" role="status" aria-label="Loading"></div>';
+    body.appendChild(preloader);
+
+    window.addEventListener("load", () => {
+      // Hide overlay after load; allow CSS transition to finish before removal
+      preloader.classList.add("preloader-hidden");
+      body.classList.remove("loading");
+      setTimeout(() => preloader.remove(), 450);
+    });
+  } catch (err) {
+    // Fail-safe: never block load if something goes wrong
+    console.error("Preloader init error:", err);
+  }
+})();
+
 document.addEventListener("DOMContentLoaded", function () {
   initStickyHeader();
   initMobileMenu();
