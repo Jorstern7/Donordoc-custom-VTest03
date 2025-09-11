@@ -4,6 +4,7 @@ Author: FRONTLENS LLC
 License: For personal/business use only. Redistribution, resale, or sublicensing is strictly prohibited without written consent. 
 Copyright (c) 2025 FRONTLENS LLC. All rights reserved. 
 */
+
 // Preloader: show secondary background with primary-colored spinner until all assets are loaded
 (function initPreloader() {
   try {
@@ -28,17 +29,31 @@ Copyright (c) 2025 FRONTLENS LLC. All rights reserved.
   }
 })();
 
+// Throttle function to limit how often a function can fire
+function throttle(func, limit) {
+  let inThrottle;
+  return function() {
+    const args = arguments;
+    const context = this;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   initStickyHeader();
   initMobileMenu();
   initSwipers();
   initFlipCards();
   initBackToTop();
-  // initSmoothScrolling();
   initCustomSelects();
   initBlogSection();
   initDropdownBehaviors();
   initNavLinkEffects();
+  initImageBlurUp();
 });
 
 function initStickyHeader() {
@@ -53,13 +68,16 @@ function initStickyHeader() {
 
   window.addEventListener("load", updateHeroPadding);
 
+  // Use throttled version for scroll performance
+  const throttledUpdate = throttle(updateHeroPadding, 100);
+
   const obs = new IntersectionObserver(
     (entries) => {
       const [entry] = entries;
       if (!entry) return;
 
       header.classList.toggle("sticky", !entry.isIntersecting);
-      if (!entry.isIntersecting) updateHeroPadding();
+      if (!entry.isIntersecting) throttledUpdate();
     },
     {
       root: null,
@@ -106,6 +124,7 @@ function initMobileMenu() {
 }
 
 function initSwipers() {
+  // Header swiper - optimized with passive events for better scroll performance
   const headerSwiper = new Swiper(".header-swiper", {
     slidesPerView: 3,
     spaceBetween: 0,
@@ -118,12 +137,14 @@ function initSwipers() {
     },
     grabCursor: true,
     allowTouchMove: true,
+    passiveListeners: true, // Improve scroll performance
     on: {
       init: scaleMiddleSlide,
-      slideChangeTransitionEnd: scaleMiddleSlide,
+      slideChangeTransitionEnd: throttle(scaleMiddleSlide, 100), // Throttle expensive operation
     },
   });
 
+  // Featured swiper
   new Swiper(".featured-swiper", {
     slidesPerView: 4,
     spaceBetween: 0,
@@ -136,6 +157,7 @@ function initSwipers() {
     },
     grabCursor: true,
     allowTouchMove: true,
+    passiveListeners: true,
     breakpoints: {
       500: { slidesPerView: 2 },
       991: { slidesPerView: 3 },
@@ -143,22 +165,24 @@ function initSwipers() {
     },
   });
 
+  // Doctors swiper - disable autoplay by default to improve performance
   const doctorsSwiper = new Swiper(".doctors-swiper", {
     slidesPerView: 2,
     spaceBetween: 40,
     loop: true,
     grabCursor: true,
     allowTouchMove: true,
-    speed: 2200,
+    speed: 800, // Reduced from 3000 for better UX
     autoplay: {
-      delay: 2600,
+      delay: 3000,
       disableOnInteraction: false,
-      enabled: false,
+      enabled: false, // Disabled by default to prevent scroll jank
     },
     navigation: {
       nextEl: ".doctors-next",
       prevEl: ".doctors-prev",
     },
+    passiveListeners: true,
     breakpoints: {
       0: { slidesPerView: 1 },
       800: { slidesPerView: 2 },
@@ -166,22 +190,24 @@ function initSwipers() {
     },
   });
 
+  // Pricing swiper - disable autoplay by default
   const pricingSwiper = new Swiper(".pricing-swiper", {
     slidesPerView: 3,
     spaceBetween: 10,
     loop: true,
     grabCursor: true,
     allowTouchMove: true,
-    speed: 2200,
+    speed: 800, // Reduced from 3000
     autoplay: {
-      delay: 2600,
+      delay: 3000,
       disableOnInteraction: false,
-      enabled: false,
+      enabled: false, // Disabled by default
     },
     navigation: {
       nextEl: ".pricing-next",
       prevEl: ".pricing-prev",
     },
+    passiveListeners: true,
     breakpoints: {
       0: { slidesPerView: 1 },
       768: { slidesPerView: 2 },
@@ -189,16 +215,17 @@ function initSwipers() {
     },
   });
 
+  // Testimonials swiper
   const testimonialsSwiper = new Swiper(".testimonial-swiper", {
     slidesPerView: 1,
     loop: true,
     grabCursor: true,
     allowTouchMove: true,
-    speed: 3000,
+    speed: 800, // Reduced from 3000
     autoplay: {
-      delay: 3200,
+      delay: 5000,
       disableOnInteraction: false,
-      enabled: false,
+      enabled: false, // Disabled by default
     },
     pagination: {
       el: ".testimonial-swiper .swiper-pagination",
@@ -208,15 +235,30 @@ function initSwipers() {
       nextEl: ".testimonials-next",
       prevEl: ".testmonials-prev",
     },
+    passiveListeners: true,
   });
 
-  setupSwiperNavigation(doctorsSwiper, ".doctors-next", ".doctors-prev");
-  setupSwiperNavigation(pricingSwiper, ".pricing-next", ".pricing-prev");
-  
-  document.querySelectorAll(".testimonial-swiper .swiper-pagination .swiper-pagination-bullet").forEach(bullet => {
-    bullet.addEventListener("click", () => {
-      testimonialsSwiper.autoplay.start();
+  // Enable autoplay only when swipers are in viewport for better performance
+  initSwiperAutoplayInView([doctorsSwiper, pricingSwiper, testimonialsSwiper]);
+}
+
+// Enable swiper autoplay only when in viewport
+function initSwiperAutoplayInView(swipers) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const swiper = swipers.find(s => s.el === entry.target);
+      if (swiper) {
+        if (entry.isIntersecting) {
+          swiper.autoplay.start();
+        } else {
+          swiper.autoplay.stop();
+        }
+      }
     });
+  }, { threshold: 0.5 });
+
+  swipers.forEach(swiper => {
+    observer.observe(swiper.el);
   });
 }
 
@@ -268,9 +310,10 @@ function initBackToTop() {
   const goTopButton = document.getElementById("up-arrow");
   if (!goTopButton) return;
 
-  window.addEventListener("scroll", function () {
+  // Use throttled scroll event for better performance
+  window.addEventListener("scroll", throttle(function () {
     goTopButton.classList.toggle("show", window.scrollY > 300);
-  });
+  }, 100));
 
   goTopButton.addEventListener("click", function () {
     window.scrollTo({
@@ -278,55 +321,6 @@ function initBackToTop() {
       behavior: "smooth",
     });
   });
-}
-
-function initSmoothScrolling() {
-  const header = document.getElementById("header");
-  if (!header) return;
-
-  const navLinks = document.querySelectorAll(
-    '.navbar-nav a[href^="#"], .offcanvas-body a[href^="#"]'
-  );
-  const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
-  const offcanvasElement = document.getElementById("offcanvasNavbar");
-  const offcanvasInstance = offcanvasElement ? 
-    bootstrap.Offcanvas.getOrCreateInstance(offcanvasElement) : null;
-
-  navLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      updateActiveStates(this, navLinks, dropdownToggles);
-
-      const target = document.querySelector(this.getAttribute("href"));
-      if (target) {
-        const offsetTop = target.offsetTop - header.offsetHeight;
-        window.scrollTo({
-          top: offsetTop,
-          behavior: "smooth",
-        });
-      }
-
-      if (offcanvasInstance && offcanvasElement.classList.contains("show")) {
-        offcanvasInstance.hide();
-      }
-    });
-  });
-
-  function updateActiveStates(clickedLink, allLinks, allToggles) {
-    allLinks.forEach((l) => l.classList.remove("active"));
-    allToggles.forEach((t) => t.classList.remove("active"));
-
-    clickedLink.classList.add("active");
-
-    const dropdown = clickedLink.closest(".dropdown-menu");
-    if (dropdown) {
-      const toggle = dropdown.previousElementSibling;
-      if (toggle && toggle.classList.contains("dropdown-toggle")) {
-        toggle.classList.add("active");
-      }
-    }
-  }
 }
 
 function initCustomSelects() {
@@ -614,14 +608,6 @@ function scaleMiddleSlide(swiper) {
   }
 }
 
-function setupSwiperNavigation(swiper, nextSelector, prevSelector) {
-  const nextBtn = document.querySelector(nextSelector);
-  const prevBtn = document.querySelector(prevSelector);
-
-  if (nextBtn) nextBtn.addEventListener("click", () => swiper.autoplay.start());
-  if (prevBtn) prevBtn.addEventListener("click", () => swiper.autoplay.start());
-}
-
 function setupDropdownCloseBehavior(toggle, menu) {
   document.addEventListener('click', function (e) {
     const isClickInside = toggle.contains(e.target) || menu.contains(e.target);
@@ -641,4 +627,65 @@ function closeAllDropdowns(allDropdowns, exceptThis = null) {
       options.classList.remove("show-drop");
     }
   });
+}
+
+// Blur-up image loader: apply blur + skeleton until image fully decoded
+function initImageBlurUp() {
+  try {
+    const images = Array.from(document.querySelectorAll('img'));
+    if (!images.length) return;
+
+    const applyLoaded = (img) => {
+      img.classList.add('is-loaded');
+    };
+
+    const observer = 'IntersectionObserver' in window ? new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const img = entry.target;
+        img.classList.add('blur-up');
+
+        const onLoad = () => {
+          if (img.decode) {
+            img.decode().catch(() => {}).finally(() => applyLoaded(img));
+          } else {
+            applyLoaded(img);
+          }
+          img.removeEventListener('load', onLoad);
+        };
+
+        if (img.complete && img.naturalWidth > 0) {
+          applyLoaded(img);
+        } else {
+          img.addEventListener('load', onLoad, { once: true });
+        }
+
+        obs.unobserve(img);
+      });
+    }, { rootMargin: '200px 0px', threshold: 0.01 }) : null;
+
+    images.forEach(img => {
+      if (img.classList.contains('no-blur')) return; // opt-out hook
+
+      // Ensure placeholder styles apply before image paints
+      img.classList.add('blur-up');
+
+      if (img.complete && img.naturalWidth > 0) {
+        applyLoaded(img);
+        return;
+      }
+
+      if (observer) {
+        observer.observe(img);
+      } else {
+        const onLoad = () => {
+          applyLoaded(img);
+          img.removeEventListener('load', onLoad);
+        };
+        img.addEventListener('load', onLoad, { once: true });
+      }
+    });
+  } catch (e) {
+    console.error('initImageBlurUp error:', e);
+  }
 }
