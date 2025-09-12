@@ -14,7 +14,8 @@ Copyright (c) 2025 FRONTLENS LLC. All rights reserved.
 
     const preloader = document.createElement("div");
     preloader.id = "preloader";
-    preloader.innerHTML = '<div class="preloader-spinner" role="status" aria-label="Loading"></div>';
+    preloader.innerHTML =
+      '<div class="preloader-spinner" role="status" aria-label="Loading"></div>';
     body.appendChild(preloader);
 
     window.addEventListener("load", () => {
@@ -32,15 +33,15 @@ Copyright (c) 2025 FRONTLENS LLC. All rights reserved.
 // Throttle function to limit how often a function can fire
 function throttle(func, limit) {
   let inThrottle;
-  return function() {
+  return function () {
     const args = arguments;
     const context = this;
     if (!inThrottle) {
       func.apply(context, args);
       inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+      setTimeout(() => (inThrottle = false), limit);
     }
-  }
+  };
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -93,8 +94,9 @@ function initStickyHeader() {
 function initMobileMenu() {
   const toggler = document.querySelector(".navbar-toggler");
   const offcanvasElement = document.getElementById("offcanvasNavbar");
-  const offcanvasInstance = offcanvasElement ? 
-    bootstrap.Offcanvas.getOrCreateInstance(offcanvasElement) : null;
+  const offcanvasInstance = offcanvasElement
+    ? bootstrap.Offcanvas.getOrCreateInstance(offcanvasElement)
+    : null;
 
   if (toggler) {
     toggler.addEventListener("click", () => {
@@ -102,13 +104,15 @@ function initMobileMenu() {
     });
   }
 
-  const offcanvasLinks = document.querySelectorAll('.offcanvas-body li:not(.dropdown) a[href^="#"]');
-  offcanvasLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
+  const offcanvasLinks = document.querySelectorAll(
+    '.offcanvas-body li:not(.dropdown) a[href^="#"]'
+  );
+  offcanvasLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
       if (offcanvasInstance) {
         offcanvasInstance.hide();
       }
-      
+
       if (toggler) {
         toggler.classList.remove("opened");
       }
@@ -116,7 +120,7 @@ function initMobileMenu() {
   });
 
   if (offcanvasElement) {
-    offcanvasElement.addEventListener('hidden.bs.offcanvas', () => {
+    offcanvasElement.addEventListener("hidden.bs.offcanvas", () => {
       if (toggler) {
         toggler.classList.remove("opened");
       }
@@ -245,20 +249,23 @@ function initSwipers() {
 
 // Enable swiper autoplay only when in viewport
 function initSwiperAutoplayInView(swipers) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const swiper = swipers.find(s => s.el === entry.target);
-      if (swiper) {
-        if (entry.isIntersecting) {
-          swiper.autoplay.start();
-        } else {
-          swiper.autoplay.stop();
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const swiper = swipers.find((s) => s.el === entry.target);
+        if (swiper) {
+          if (entry.isIntersecting) {
+            swiper.autoplay.start();
+          } else {
+            swiper.autoplay.stop();
+          }
         }
-      }
-    });
-  }, { threshold: 0.5 });
+      });
+    },
+    { threshold: 0.5 }
+  );
 
-  swipers.forEach(swiper => {
+  swipers.forEach((swiper) => {
     observer.observe(swiper.el);
   });
 }
@@ -290,7 +297,10 @@ function initFlipCards() {
     allFlips.forEach((otherFlip) => {
       const otherCard = otherFlip.querySelector(".card");
       const otherBtn = otherFlip.querySelector(".learn-more-btn");
-      if (otherCard !== currentCard && otherCard.classList.contains("flipped")) {
+      if (
+        otherCard !== currentCard &&
+        otherCard.classList.contains("flipped")
+      ) {
         resetCard(otherCard, otherBtn);
       }
     });
@@ -312,9 +322,12 @@ function initBackToTop() {
   if (!goTopButton) return;
 
   // Use throttled scroll event for better performance
-  window.addEventListener("scroll", throttle(function () {
-    goTopButton.classList.toggle("show", window.scrollY > 300);
-  }, 100));
+  window.addEventListener(
+    "scroll",
+    throttle(function () {
+      goTopButton.classList.toggle("show", window.scrollY > 300);
+    }, 100)
+  );
 
   goTopButton.addEventListener("click", function () {
     window.scrollTo({
@@ -373,7 +386,7 @@ function initCustomSelects() {
         });
         options.classList.toggle("show-drop");
         select.classList.toggle("active");
-        
+
         if (select.classList.contains("active")) {
           document.body.classList.add("no-scroll");
         } else {
@@ -419,8 +432,8 @@ function initBlogSection() {
   const SCROLL_OFFSET = 113;
   let visibleCount = cardsToShow;
 
-  cards.forEach(card => {
-    card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  cards.forEach((card) => {
+    card.style.transition = "opacity 0.4s ease, transform 0.4s ease";
   });
 
   const updateCardsVisibility = () => {
@@ -434,17 +447,23 @@ function initBlogSection() {
       } else {
         card.style.opacity = "0";
         card.style.transform = "translateY(20px)";
-        card.addEventListener('transitionend', function handler() {
-          if (card.style.opacity === "0") {
-            card.style.display = "none";
-            card.removeEventListener('transitionend', handler);
-          }
-        }, { once: true });
+        card.addEventListener(
+          "transitionend",
+          function handler() {
+            if (card.style.opacity === "0") {
+              card.style.display = "none";
+              card.removeEventListener("transitionend", handler);
+            }
+          },
+          { once: true }
+        );
       }
     });
 
-    toggleBtn.textContent = visibleCount >= cards.length ? "Show Less" : "Show More";
-    toggleBtn.style.display = cards.length <= cardsToShow ? "none" : "inline-block";
+    toggleBtn.textContent =
+      visibleCount >= cards.length ? "Show Less" : "Show More";
+    toggleBtn.style.display =
+      cards.length <= cardsToShow ? "none" : "inline-block";
   };
 
   const scrollToWithOffset = (el) => {
@@ -455,9 +474,9 @@ function initBlogSection() {
   toggleBtn.addEventListener("click", () => {
     toggleBtn.disabled = true;
     const expanding = visibleCount < cards.length;
-    visibleCount = expanding ? 
-      Math.min(visibleCount + cardsToShow, cards.length) : 
-      cardsToShow;
+    visibleCount = expanding
+      ? Math.min(visibleCount + cardsToShow, cards.length)
+      : cardsToShow;
 
     updateCardsVisibility();
 
@@ -479,18 +498,22 @@ function initBlogSection() {
 }
 
 function initDropdownBehaviors() {
-  const navDropdownToggle = document.querySelector('.nav-item.dropdown .nav-link.dropdown-toggle');
-  const navDropdownMenu = document.querySelector('.nav-item.dropdown .dropdown-menu');
+  const navDropdownToggle = document.querySelector(
+    ".nav-item.dropdown .nav-link.dropdown-toggle"
+  );
+  const navDropdownMenu = document.querySelector(
+    ".nav-item.dropdown .dropdown-menu"
+  );
 
   if (navDropdownToggle && navDropdownMenu) {
-    navDropdownToggle.addEventListener('click', function (e) {
+    navDropdownToggle.addEventListener("click", function (e) {
       if (window.innerWidth < 1024) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
-          if (menu !== navDropdownMenu) menu.classList.remove('show');
+        document.querySelectorAll(".dropdown-menu.show").forEach((menu) => {
+          if (menu !== navDropdownMenu) menu.classList.remove("show");
         });
-        navDropdownMenu.classList.toggle('show');
+        navDropdownMenu.classList.toggle("show");
       }
     });
 
@@ -499,16 +522,17 @@ function initDropdownBehaviors() {
 
   const appointmentSection = document.querySelector("#appointment-cta");
   if (appointmentSection) {
-    const appointmentSelects = appointmentSection.querySelectorAll(".custom-select");
+    const appointmentSelects =
+      appointmentSection.querySelectorAll(".custom-select");
     let activeAppointmentSelect = null;
 
-    appointmentSelects.forEach(select => {
+    appointmentSelects.forEach((select) => {
       const selected = select.querySelector(".selected");
       const options = select.querySelector(".options");
 
       selected.addEventListener("click", function (e) {
         e.stopPropagation();
-        
+
         if (select === activeAppointmentSelect) {
           options.classList.remove("show-drop");
           activeAppointmentSelect = null;
@@ -520,7 +544,7 @@ function initDropdownBehaviors() {
         activeAppointmentSelect = select;
       });
 
-      select.querySelectorAll(".option").forEach(option => {
+      select.querySelectorAll(".option").forEach((option) => {
         option.addEventListener("click", function (e) {
           e.stopPropagation();
           selected.textContent = this.textContent;
@@ -547,7 +571,7 @@ function initDropdownBehaviors() {
         }, 2600);
       });
 
-      doctorSelect.querySelectorAll(".option").forEach(option => {
+      doctorSelect.querySelectorAll(".option").forEach((option) => {
         option.addEventListener("click", function () {
           selected.textContent = this.textContent;
           options.classList.remove("show-drop");
@@ -559,48 +583,53 @@ function initDropdownBehaviors() {
 }
 
 function initNavLinkEffects() {
-  const allLinks = document.querySelectorAll(".navbar-nav .nav-link, .navbar-nav .dropdown-item");
+  const allLinks = document.querySelectorAll(
+    ".navbar-nav .nav-link, .navbar-nav .dropdown-item"
+  );
   const dropdown = document.querySelector(".nav-item.dropdown");
   if (!allLinks.length || !dropdown) return;
 
   if (window.innerWidth >= 992) {
     const dropdownToggle = dropdown.querySelector(".nav-link");
-    
-    allLinks.forEach(link => {
+
+    allLinks.forEach((link) => {
       link.style.transition = "opacity 0.3s ease";
     });
 
     const handleLinkHover = (hoveredLink) => {
-      allLinks.forEach(other => {
-        if (hoveredLink.classList.contains('dropdown-item')) {
-          other.style.opacity = 
-            (other === hoveredLink || other === dropdownToggle) ? "1" : "0.3";
+      allLinks.forEach((other) => {
+        if (hoveredLink.classList.contains("dropdown-item")) {
+          other.style.opacity =
+            other === hoveredLink || other === dropdownToggle ? "1" : "0.3";
         } else if (hoveredLink === dropdownToggle) {
-          other.style.opacity = 
-            (other === dropdownToggle || other.classList.contains('dropdown-item')) ? "1" : "0.3";
+          other.style.opacity =
+            other === dropdownToggle ||
+            other.classList.contains("dropdown-item")
+              ? "1"
+              : "0.3";
         } else {
           other.style.opacity = other === hoveredLink ? "1" : "0.3";
         }
       });
     };
 
-    allLinks.forEach(link => {
+    allLinks.forEach((link) => {
       link.addEventListener("mouseenter", () => handleLinkHover(link));
       link.addEventListener("mouseleave", () => {
-        allLinks.forEach(l => (l.style.opacity = "1"));
+        allLinks.forEach((l) => (l.style.opacity = "1"));
       });
     });
 
     dropdown.addEventListener("mouseleave", () => {
-      allLinks.forEach(link => (link.style.opacity = "1"));
+      allLinks.forEach((link) => (link.style.opacity = "1"));
     });
   }
 }
 
 function scaleMiddleSlide(swiper) {
-  swiper.slides.forEach(slide => slide.classList.remove("is-scaled"));
+  swiper.slides.forEach((slide) => slide.classList.remove("is-scaled"));
 
-  const visibleSlides = Array.from(swiper.slides).filter(slide =>
+  const visibleSlides = Array.from(swiper.slides).filter((slide) =>
     slide.classList.contains("swiper-slide-visible")
   );
 
@@ -610,19 +639,19 @@ function scaleMiddleSlide(swiper) {
 }
 
 function setupDropdownCloseBehavior(toggle, menu) {
-  document.addEventListener('click', function (e) {
+  document.addEventListener("click", function (e) {
     const isClickInside = toggle.contains(e.target) || menu.contains(e.target);
-    if (!isClickInside) menu.classList.remove('show');
+    if (!isClickInside) menu.classList.remove("show");
   });
 
-  const links = menu.querySelectorAll('a');
-  links.forEach(link => {
-    link.addEventListener('click', () => menu.classList.remove('show'));
+  const links = menu.querySelectorAll("a");
+  links.forEach((link) => {
+    link.addEventListener("click", () => menu.classList.remove("show"));
   });
 }
 
 function closeAllDropdowns(allDropdowns, exceptThis = null) {
-  allDropdowns.forEach(select => {
+  allDropdowns.forEach((select) => {
     if (select !== exceptThis) {
       const options = select.querySelector(".options");
       options.classList.remove("show-drop");
@@ -632,54 +661,57 @@ function closeAllDropdowns(allDropdowns, exceptThis = null) {
 
 // Lazy-load all images except those inside <header>. Supports data-src/data-srcset and dynamic content.
 function initLazyImages() {
-  const isInHeader = (el) => !!el.closest('header');
+  const isInHeader = (el) => !!el.closest("header");
 
   // 1) Eager-load header images to preserve LCP
-  document.querySelectorAll('header img').forEach((img) => {
-    img.loading = 'eager';
-    img.decoding = 'async';
-    if (!img.hasAttribute('fetchpriority')) {
-      img.setAttribute('fetchpriority', 'high');
+  document.querySelectorAll("header img").forEach((img) => {
+    img.loading = "eager";
+    img.decoding = "async";
+    if (!img.hasAttribute("fetchpriority")) {
+      img.setAttribute("fetchpriority", "high");
     }
   });
 
   // 2) Observer for data-src / data-srcset swap (for full control when desired)
-  const ioSwap = 'IntersectionObserver' in window ? new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const img = entry.target;
+  const ioSwap =
+    "IntersectionObserver" in window
+      ? new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const img = entry.target;
 
-        // Swap sources when about to enter viewport
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        }
-        if (img.dataset.srcset) {
-          img.srcset = img.dataset.srcset;
-          img.removeAttribute('data-srcset');
-        }
+              // Swap sources when about to enter viewport
+              if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute("data-src");
+              }
+              if (img.dataset.srcset) {
+                img.srcset = img.dataset.srcset;
+                img.removeAttribute("data-srcset");
+              }
 
-        // Let browser pick the right candidate after swap
-        if (!img.hasAttribute('sizes') && img.parentElement) {
-          // no-op: keep author control; add sizes in markup if needed
-        }
+              // Let browser pick the right candidate after swap
+              if (!img.hasAttribute("sizes") && img.parentElement) {
+                // no-op: keep author control; add sizes in markup if needed
+              }
 
-        obs.unobserve(img);
-      });
-    },
-    { rootMargin: '200px 0px' }
-  ) : null;
+              obs.unobserve(img);
+            });
+          },
+          { rootMargin: "200px 0px" }
+        )
+      : null;
 
   // 3) Upgrade every <img> outside header
   const upgradeImg = (img) => {
-    if (isInHeader(img)) return;               // skip header
-    if (img.hasAttribute('data-no-lazy')) return; // per-image opt-out
+    if (isInHeader(img)) return; // skip header
+    if (img.hasAttribute("data-no-lazy")) return; // per-image opt-out
 
     // Prefer native lazy for simple cases
-    img.decoding = 'async';
-    if (!img.hasAttribute('loading')) {
-      img.loading = 'lazy';
+    img.decoding = "async";
+    if (!img.hasAttribute("loading")) {
+      img.loading = "lazy";
     }
 
     // If developer provided data-src/srcset, use IO swap for precise timing
@@ -688,7 +720,7 @@ function initLazyImages() {
     }
   };
 
-  document.querySelectorAll('img').forEach(upgradeImg);
+  document.querySelectorAll("img").forEach(upgradeImg);
 
   // 4) Handle dynamically injected images (e.g., Swiper slides, CMS content)
   const mo = new MutationObserver((muts) => {
@@ -696,8 +728,8 @@ function initLazyImages() {
       m.addedNodes.forEach((node) => {
         if (!(node instanceof Element)) return;
 
-        if (node.matches?.('img')) upgradeImg(node);
-        node.querySelectorAll?.('img').forEach(upgradeImg);
+        if (node.matches?.("img")) upgradeImg(node);
+        node.querySelectorAll?.("img").forEach(upgradeImg);
       });
     }
   });
@@ -707,46 +739,55 @@ function initLazyImages() {
 // Blur-up image loader: apply blur + skeleton until image fully decoded
 function initImageBlurUp() {
   try {
-    const images = Array.from(document.querySelectorAll('img'));
+    const images = Array.from(document.querySelectorAll("img"));
     if (!images.length) return;
 
-    const isInHeader = (el) => !!el.closest('header'); // <— add this
+    const isInHeader = (el) => !!el.closest("header"); // <— add this
 
     const applyLoaded = (img) => {
-      img.classList.add('is-loaded');
+      img.classList.add("is-loaded");
     };
 
-    const observer = 'IntersectionObserver' in window ? new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const img = entry.target;
-        img.classList.add('blur-up');
+    const observer =
+      "IntersectionObserver" in window
+        ? new IntersectionObserver(
+            (entries, obs) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const img = entry.target;
+                img.classList.add("blur-up");
 
-        const onLoad = () => {
-          if (img.decode) {
-            img.decode().catch(() => {}).finally(() => applyLoaded(img));
-          } else {
-            applyLoaded(img);
-          }
-          img.removeEventListener('load', onLoad);
-        };
+                const onLoad = () => {
+                  if (img.decode) {
+                    img
+                      .decode()
+                      .catch(() => {})
+                      .finally(() => applyLoaded(img));
+                  } else {
+                    applyLoaded(img);
+                  }
+                  img.removeEventListener("load", onLoad);
+                };
 
-        if (img.complete && img.naturalWidth > 0) {
-          applyLoaded(img);
-        } else {
-          img.addEventListener('load', onLoad, { once: true });
-        }
+                if (img.complete && img.naturalWidth > 0) {
+                  applyLoaded(img);
+                } else {
+                  img.addEventListener("load", onLoad, { once: true });
+                }
 
-        obs.unobserve(img);
-      });
-    }, { rootMargin: '200px 0px', threshold: 0.01 }) : null;
+                obs.unobserve(img);
+              });
+            },
+            { rootMargin: "200px 0px", threshold: 0.01 }
+          )
+        : null;
 
-    images.forEach(img => {
-      if (img.classList.contains('no-blur')) return; // opt-out
-      if (isInHeader(img)) return;                   // NEW: don't blur header/LCP images
+    images.forEach((img) => {
+      if (img.classList.contains("no-blur")) return; // opt-out
+      if (isInHeader(img)) return; // NEW: don't blur header/LCP images
 
       // Ensure placeholder styles apply before image paints
-      img.classList.add('blur-up');
+      img.classList.add("blur-up");
 
       if (img.complete && img.naturalWidth > 0) {
         applyLoaded(img);
@@ -758,12 +799,12 @@ function initImageBlurUp() {
       } else {
         const onLoad = () => {
           applyLoaded(img);
-          img.removeEventListener('load', onLoad);
+          img.removeEventListener("load", onLoad);
         };
-        img.addEventListener('load', onLoad, { once: true });
+        img.addEventListener("load", onLoad, { once: true });
       }
     });
   } catch (e) {
-    console.error('initImageBlurUp error:', e);
+    console.error("initImageBlurUp error:", e);
   }
 }
