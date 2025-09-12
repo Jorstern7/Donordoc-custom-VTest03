@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initBlogSection();
   initDropdownBehaviors();
   initNavLinkEffects();
+  initLazyImages();
   initImageBlurUp();
 });
 
@@ -629,11 +630,87 @@ function closeAllDropdowns(allDropdowns, exceptThis = null) {
   });
 }
 
+// Lazy-load all images except those inside <header>. Supports data-src/data-srcset and dynamic content.
+function initLazyImages() {
+  const isInHeader = (el) => !!el.closest('header');
+
+  // 1) Eager-load header images to preserve LCP
+  document.querySelectorAll('header img').forEach((img) => {
+    img.loading = 'eager';
+    img.decoding = 'async';
+    if (!img.hasAttribute('fetchpriority')) {
+      img.setAttribute('fetchpriority', 'high');
+    }
+  });
+
+  // 2) Observer for data-src / data-srcset swap (for full control when desired)
+  const ioSwap = 'IntersectionObserver' in window ? new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const img = entry.target;
+
+        // Swap sources when about to enter viewport
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+        if (img.dataset.srcset) {
+          img.srcset = img.dataset.srcset;
+          img.removeAttribute('data-srcset');
+        }
+
+        // Let browser pick the right candidate after swap
+        if (!img.hasAttribute('sizes') && img.parentElement) {
+          // no-op: keep author control; add sizes in markup if needed
+        }
+
+        obs.unobserve(img);
+      });
+    },
+    { rootMargin: '200px 0px' }
+  ) : null;
+
+  // 3) Upgrade every <img> outside header
+  const upgradeImg = (img) => {
+    if (isInHeader(img)) return;               // skip header
+    if (img.hasAttribute('data-no-lazy')) return; // per-image opt-out
+
+    // Prefer native lazy for simple cases
+    img.decoding = 'async';
+    if (!img.hasAttribute('loading')) {
+      img.loading = 'lazy';
+    }
+
+    // If developer provided data-src/srcset, use IO swap for precise timing
+    if (ioSwap && (img.dataset.src || img.dataset.srcset)) {
+      ioSwap.observe(img);
+    }
+  };
+
+  document.querySelectorAll('img').forEach(upgradeImg);
+
+  // 4) Handle dynamically injected images (e.g., Swiper slides, CMS content)
+  const mo = new MutationObserver((muts) => {
+    for (const m of muts) {
+      m.addedNodes.forEach((node) => {
+        if (!(node instanceof Element)) return;
+
+        if (node.matches?.('img')) upgradeImg(node);
+        node.querySelectorAll?.('img').forEach(upgradeImg);
+      });
+    }
+  });
+  mo.observe(document.documentElement, { childList: true, subtree: true });
+}
+
 // Blur-up image loader: apply blur + skeleton until image fully decoded
 function initImageBlurUp() {
   try {
     const images = Array.from(document.querySelectorAll('img'));
     if (!images.length) return;
+
+    const isInHeader = (el) => !!el.closest('header'); // <— add this
 
     const applyLoaded = (img) => {
       img.classList.add('is-loaded');
@@ -665,7 +742,8 @@ function initImageBlurUp() {
     }, { rootMargin: '200px 0px', threshold: 0.01 }) : null;
 
     images.forEach(img => {
-      if (img.classList.contains('no-blur')) return; // opt-out hook
+      if (img.classList.contains('no-blur')) return; // opt-out
+      if (isInHeader(img)) return;                   // NEW: don't blur header/LCP images
 
       // Ensure placeholder styles apply before image paints
       img.classList.add('blur-up');
