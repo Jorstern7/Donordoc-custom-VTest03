@@ -46,6 +46,7 @@ function throttle(func, limit) {
 
 document.addEventListener("DOMContentLoaded", function () {
   initStickyHeader();
+  initNavScroll();
   initMobileMenu();
   initSwipers();
   initFlipCards();
@@ -89,6 +90,44 @@ function initStickyHeader() {
   );
 
   obs.observe(hero);
+}
+
+function initNavScroll() {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(
+    '.navbar-nav a[href^="#"], .nav a[href^="#"]'
+  );
+  const linkMap = {};
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    if (!linkMap[href]) linkMap[href] = [];
+    linkMap[href].push(link);
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+      if (visibleEntries.length === 0) return;
+
+      const topmost = visibleEntries.reduce((prev, curr) => {
+        return curr.boundingClientRect.top < prev.boundingClientRect.top
+          ? curr
+          : prev;
+      });
+
+      const id = topmost.target.id;
+      const hash = `#${id}`;
+
+      history.replaceState(null, null, hash);
+
+      navLinks.forEach((link) => link.classList.remove("active"));
+      if (linkMap[hash]) {
+        linkMap[hash].forEach((link) => link.classList.add("active"));
+      }
+    },
+    { threshold: 0.5 }
+  );
+  sections.forEach((section) => observer.observe(section));
 }
 
 function initMobileMenu() {

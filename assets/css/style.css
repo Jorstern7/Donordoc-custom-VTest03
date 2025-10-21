@@ -123,7 +123,6 @@ footer {
 .btn.btn-default {
   background-color: #37b24d;
   color: #fff;
-  border: 3px solid #fff;
 }
 .btn.btn-default:hover, .btn.btn-default:active {
   background-color: rgb(42.9613733906, 139.0386266094, 60.1459227468);
@@ -135,16 +134,6 @@ footer {
   height: 100%;
   width: 8px;
   transition: all 0.5s;
-}
-.btn.btn-default::before {
-  left: -5px;
-  background-color: #fff;
-  top: 40%;
-}
-.btn.btn-default::after {
-  right: -5px;
-  background-color: #fff;
-  bottom: 40%;
 }
 .btn.btn-outline {
   background-color: #fff;
@@ -197,6 +186,17 @@ footer {
   line-height: 1.05;
   margin-bottom: 30px;
   color: #37b24d;
+}
+
+.section-title {
+  font-size: 24px !important;
+  color: #37b24d;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: #ced4da;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .heading-four {
@@ -359,6 +359,8 @@ footer {
   transition: all 0.3s ease;
   z-index: 9999;
   background-color: #d7f0db;
+  position: absolute;
+  width: 100%;
 }
 #header.sticky {
   position: fixed;
@@ -419,12 +421,10 @@ footer {
 #header nav ul.dropdown-menu li a:hover {
   color: #37b24d;
   background-color: white;
-  font-weight: 500;
 }
 #header nav ul.dropdown-menu li a:active {
   color: #37b24d;
   background-color: white;
-  font-weight: 500;
 }
 #header nav .dropdown-menu {
   opacity: 0;
@@ -612,6 +612,10 @@ footer {
   }
 }
 
+.offcanvas.show {
+  visibility: visible !important;
+}
+
 main .section-health {
   background-color: #d7f0db;
   padding: 50px 0 100px 0;
@@ -790,7 +794,7 @@ main .section-about .icon-wrapping .icons-about figcaption .phase--2 {
   display: inline-block;
 }
 main .services-section {
-  padding: 50px 0 90px 0;
+  padding-top: 50px;
 }
 main .services-section p,
 main .services-section h1 {
@@ -884,7 +888,7 @@ main .services-section .flip .card .card-body.front .learn-more-btn {
   margin: 0 auto;
   background-color: #37b24d;
   color: #fff;
-  border: 3px solid #fff;
+  border: 3px solid #37b24d;
   transition: 0.5s all;
 }
 main .services-section .flip .card .card-body.front .service-box-info {
@@ -1003,7 +1007,7 @@ main .services-section .flip .card .card-body .service-box-info .rating {
   text-transform: uppercase;
   border-top: 1px solid #37b24d;
   background-color: #d3f9d8;
-  gap: 10px;
+  gap: 5px;
 }
 main .services-section .flip .card .card-body .service-box-info .rating svg {
   padding: 0;
@@ -1739,6 +1743,9 @@ main .blog-section .blog-card.blog-card--hidden {
   height: 30px;
   stroke-width: 1.2;
 }
+#footer .footer-section ul li a svg.quick-link {
+  stroke-width: 2;
+}
 #footer .site-footer {
   background-color: #37b24d;
   padding: 20px 10px;
@@ -1789,7 +1796,7 @@ main .blog-section .blog-card.blog-card--hidden {
 }
 #up-arrow.show {
   opacity: 1;
-  visibility: visible;
+  visibility: visible !important;
 }
 
 .fade-out {
@@ -1817,6 +1824,9 @@ main .blog-section .blog-card.blog-card--hidden {
   }
   main .section-health .health-img-box .health-img.health-img--2 {
     height: 185.25px;
+  }
+  main .section-health {
+    padding-top: 150px !important;
   }
 }
 @media (max-width: 1199.98px) {
@@ -2078,7 +2088,7 @@ main .blog-section .blog-card.blog-card--hidden {
     padding: 25px 0;
   }
   main .services-section {
-    padding: 25px 0 45px;
+    padding-top: 25px;
   }
   main .appointment-form-section {
     padding: 45px 0;
@@ -2165,7 +2175,7 @@ main .blog-section .blog-card.blog-card--hidden {
     text-align: center;
   }
   main .section-health {
-    padding: 50px 0 50px 0;
+    padding: 100px 0 50px 0 !important;
   }
   #footer .footer-section .heading-four {
     text-align: left;
@@ -2221,7 +2231,7 @@ main .blog-section .blog-card.blog-card--hidden {
     margin: 0 auto;
     background-color: #37b24d;
     color: #fff;
-    border: 3px solid #fff;
+    border: 3px solid #37b24d;
     transition: 0.5s all;
   }
   main .section-about .card-body {
@@ -2418,7 +2428,7 @@ main .blog-section .blog-card.blog-card--hidden {
     padding: 10px 18px;
   }
   main .services-section .flip .card .card-body.back .service-box-info h4 {
-    font-size: 12px;
+    font-size: 15px;
   }
   main .appointment-form-section .custom-form .form-title {
     font-size: 25px;
