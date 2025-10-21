@@ -129,7 +129,6 @@ footer {
   &.btn-default {
     background-color: #37b24d;
     color: #fff;
-    border: 3px solid #fff;
 
     &:hover,
     &:active {
@@ -144,18 +143,6 @@ footer {
       height: 100%;
       width: 8px;
       transition: all 0.5s;
-    }
-
-    &::before {
-      left: -5px;
-      background-color: #fff;
-      top: 40%;
-    }
-
-    &::after {
-      right: -5px;
-      background-color: #fff;
-      bottom: 40%;
     }
   }
 
@@ -254,6 +241,17 @@ footer {
   color: #37b24d;
 }
 
+.section-title {
+font-size: 24px !important;
+  color: #37b24d;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: #ced4da;
+  margin-bottom: 20px;
+  font-weight: bold;
+ text-transform: uppercase;
+}
+
 .heading-four {
   font-size: 24px;
   color: #37b24d;
@@ -263,6 +261,8 @@ footer {
   margin-bottom: 20px;
   font-weight: bold;
 }
+
+
 
 .custom-popup {
   position: relative;
@@ -429,6 +429,8 @@ footer {
   transition: all 0.3s ease;
   z-index: 9999;
   background-color: #d7f0db;
+  position: absolute;
+  width: 100%;
 
   &.sticky {
     position: fixed;
@@ -500,12 +502,12 @@ footer {
           &:hover {
             color: #37b24d;
             background-color: white;
-            font-weight: 500;
+            // font-weight: 500;
           }
           &:active {
             color: #37b24d;
             background-color: white;
-            font-weight: 500;
+            // font-weight: 500;
           }
         }
       }
@@ -740,6 +742,10 @@ footer {
   }
 }
 
+.offcanvas.show {
+  visibility: visible !important;
+}
+
 main {
   .section-health {
     background-color: #d7f0db;
@@ -950,7 +956,7 @@ main {
   }
 
   .services-section {
-    padding: 50px 0 90px 0;
+    padding-top: 50px;
 
     p,
     h1 {
@@ -1051,7 +1057,7 @@ main {
               margin: 0 auto;
               background-color: #37b24d;
               color: #fff;
-              border: 3px solid #fff;
+              border: 3px solid #37b24d;
               transition: 0.5s all;
             }
 
@@ -1183,7 +1189,7 @@ main {
               text-transform: uppercase;
               border-top: 1px solid #37b24d;
               background-color: #d3f9d8;
-              gap: 10px;
+              gap: 5px;
 
               svg {
                 padding: 0;
@@ -2055,6 +2061,9 @@ main {
             height: 30px;
             stroke-width: 1.2;
           }
+          svg.quick-link{
+            stroke-width: 2;
+          }
         }
       }
     }
@@ -2119,7 +2128,7 @@ main {
 
   &.show {
     opacity: 1;
-    visibility: visible;
+    visibility: visible !important;
   }
 }
 
@@ -2152,6 +2161,10 @@ main {
   main .section-health .health-img-box .health-img.health-img--2{
     height: 185.25px;
   }
+
+  main .section-health {
+    padding-top: 150px !important;
+  }
 }
 
 @media (max-width: 1199.98px) {
@@ -2183,6 +2196,8 @@ main {
     font-size: 16px;
     padding: 10px 25px;
   }
+
+   
 
   main .section-about p.heading-four,
   .heading-four,
@@ -2480,7 +2495,7 @@ main {
   }
 
   main .services-section {
-    padding: 25px 0 45px;
+    padding-top: 25px;
   }
 
   main .appointment-form-section {
@@ -2586,7 +2601,7 @@ main {
   }
 
   main .section-health {
-    padding: 50px 0 50px 0;
+    padding: 100px 0 50px 0 !important;
   }
 
   #footer .footer-section .heading-four {
@@ -2651,7 +2666,7 @@ main {
     margin: 0 auto;
     background-color: #37b24d;
     color: #fff;
-    border: 3px solid #fff;
+    border: 3px solid #37b24d;
     transition: 0.5s all;
   }
 
@@ -2900,7 +2915,7 @@ main {
   }
 
   main .services-section .flip .card .card-body.back .service-box-info h4 {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   main .appointment-form-section .custom-form .form-title {
