@@ -188,8 +188,8 @@ footer {
   color: #37b24d;
 }
 
-.section-title {
-  font-size: 24px !important;
+.heading-four {
+  font-size: 22px;
   color: #37b24d;
   text-decoration: underline;
   text-decoration-thickness: 5px;
@@ -197,16 +197,6 @@ footer {
   margin-bottom: 20px;
   font-weight: bold;
   text-transform: uppercase;
-}
-
-.heading-four {
-  font-size: 24px;
-  color: #37b24d;
-  text-decoration: underline;
-  text-decoration-thickness: 5px;
-  text-decoration-color: #ced4da;
-  margin-bottom: 20px;
-  font-weight: bold;
 }
 
 .custom-popup {
@@ -959,7 +949,6 @@ main .services-section .flip .card .card-body.back .service-box-info .rating {
   text-transform: uppercase;
   border-top: 0;
   background-color: #d3f9d8;
-  gap: 5px;
 }
 main .services-section .flip .card .card-body.back .service-box-info .rating svg {
   padding: 0;
@@ -1007,7 +996,6 @@ main .services-section .flip .card .card-body .service-box-info .rating {
   text-transform: uppercase;
   border-top: 1px solid #37b24d;
   background-color: #d3f9d8;
-  gap: 5px;
 }
 main .services-section .flip .card .card-body .service-box-info .rating svg {
   padding: 0;
@@ -1741,9 +1729,6 @@ main .blog-section .blog-card.blog-card--hidden {
   stroke: #37b24d;
   width: 30px;
   height: 30px;
-  stroke-width: 1.2;
-}
-#footer .footer-section ul li a svg.quick-link {
   stroke-width: 2;
 }
 #footer .site-footer {
