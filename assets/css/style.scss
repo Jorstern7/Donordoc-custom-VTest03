@@ -154,6 +154,12 @@ footer {
   }
 }
 
+.btn-pale {
+    background: linear-gradient(to right, #37B24D, #1EA99D) !important;
+}
+.btn-pale:hover {
+  background: linear-gradient(to right, #2E9A43, #178F86) !important;
+}
 .btn {
   display: inline-flex;
   text-decoration: none;
