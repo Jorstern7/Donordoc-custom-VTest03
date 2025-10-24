@@ -72,6 +72,46 @@ footer {
   overflow: hidden;
 }
 
+.stroke-primary {
+  stroke: #37b24d;
+}
+
+.check-text {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.overline-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.overline-container .overline-icon {
+  width: 20px;
+  height: 20px;
+  color: #37b24d;
+}
+.overline-container .overline-text {
+  font-size: 16px;
+  font-weight: 450;
+  color: black;
+  white-space: nowrap;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.gap-4 {
+  gap: 16px;
+}
+
 .arrow-btn {
   display: flex;
   justify-content: center;
@@ -121,11 +161,12 @@ footer {
   align-items: center;
 }
 .btn.btn-default {
-  background-color: #37b24d;
+  background: linear-gradient(to right, #37B24D, #1A3D5C);
+  border: none;
   color: #fff;
 }
 .btn.btn-default:hover, .btn.btn-default:active {
-  background-color: rgb(42.9613733906, 139.0386266094, 60.1459227468);
+  background: linear-gradient(to right, #2E9A43, #162F46);
   color: #fff;
 }
 .btn.btn-default::before, .btn.btn-default::after {
@@ -215,6 +256,10 @@ footer {
   box-shadow: 0 0 6px #37b24d;
   outline: none;
   transition: 0.5s all;
+}
+
+.bg-gradient-green-soft {
+  background: linear-gradient(to bottom, rgba(215, 240, 219, 0), #d7f0db 80%);
 }
 
 .popup {
@@ -467,16 +512,7 @@ footer {
   color: #fff;
   background-color: #37b24d;
   border-color: #37b24d;
-  box-shadow: 0 4px 0 #2f9e44;
   transition: all 0.2s ease;
-}
-#header nav ul:not(.dropdown-menu) > li > a.btn:hover, #header nav ul:not(.dropdown-menu) > li > a.btn:focus, #header nav ul:not(.dropdown-menu) > li > a.btn:active, #header nav ul:not(.dropdown-menu) > li > a.btn:focus-visible {
-  background-color: #32a045;
-  border-color: #32a045;
-  box-shadow: none;
-  outline: none;
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #2f9e44;
 }
 #header nav .collapse.navbar-collapse ul.dropdown-menu {
   left: auto;
@@ -607,7 +643,6 @@ footer {
 }
 
 main .section-health {
-  background-color: #d7f0db;
   padding: 50px 0 100px 0;
 }
 main .section-health p {
@@ -622,7 +657,7 @@ main .section-health .health-img-box .health-img {
   position: absolute;
   border-radius: 9px;
   transition: transform 0.8s ease, z-index 0.5s ease-in-out;
-  width: 350px;
+  width: 380px;
 }
 main .section-health .health-img-box .health-img.health-img--1 {
   z-index: 1;
@@ -868,9 +903,9 @@ main .services-section .flip .card .card-body.front {
   }
 }
 main .services-section .flip .card .card-body.front .learn-more-btn {
-  bottom: -27px;
+  bottom: -25px;
   position: absolute;
-  padding: 5px 20px;
+  padding: 6.5px 20px;
   left: 0;
   right: 0;
   width: -moz-max-content;
@@ -878,7 +913,6 @@ main .services-section .flip .card .card-body.front .learn-more-btn {
   margin: 0 auto;
   background-color: #37b24d;
   color: #fff;
-  border: 3px solid #37b24d;
   transition: 0.5s all;
 }
 main .services-section .flip .card .card-body.front .service-box-info {
@@ -1035,7 +1069,6 @@ main .services-section .flip .card:hover .card-body.back .btn-arrow {
 }
 main .appointment-form-section {
   padding: 90px 0;
-  background-color: #d7f0db;
 }
 main .appointment-form-section .options {
   position: absolute;
@@ -1095,6 +1128,7 @@ main .appointment-form-section .custom-form {
   padding: 30px 40px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: solid 1px rgb(224, 224, 224);
 }
 main .appointment-form-section .custom-form .form-title {
   text-align: center;
@@ -1347,7 +1381,6 @@ main .doctor-section .card .card-body .doctorInfo .doctor-contact a svg {
 }
 main .find-a-doc-section {
   padding: 50px 0;
-  background-color: #d7f0db;
 }
 main .find-a-doc-section h1,
 main .find-a-doc-section p {
@@ -1425,7 +1458,6 @@ main .find-a-doc-section .findDocform .form-select:focus-visible {
 }
 main .find-a-doc-section .findDocform .btn-submit,
 main .find-a-doc-section .findDocform input[type=submit] {
-  background-color: #37b24d;
   color: #fff;
   border: none;
   padding: 20px 40px;
@@ -1437,7 +1469,6 @@ main .find-a-doc-section .findDocform input[type=submit] {
 }
 main .find-a-doc-section .findDocform .btn-submit:hover,
 main .find-a-doc-section .findDocform input[type=submit]:hover {
-  background-color: #32a045;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 0 6px #37b24d;
 }
@@ -1657,7 +1688,6 @@ main .blog-section .blog-card.blog-card--hidden {
 
 #footer .footer-section {
   padding: 50px 0;
-  background-color: #d7f0db;
 }
 #footer .footer-section p {
   margin: 10px 0;
@@ -1732,7 +1762,7 @@ main .blog-section .blog-card.blog-card--hidden {
   stroke-width: 2;
 }
 #footer .site-footer {
-  background-color: #37b24d;
+  background: linear-gradient(to right, #37B24D, #1A3D5C);
   padding: 20px 10px;
 }
 #footer .site-footer p {
