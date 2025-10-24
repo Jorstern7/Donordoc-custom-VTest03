@@ -80,6 +80,13 @@ function initStickyHeader() {
       if (!entry) return;
 
       header.classList.toggle("sticky", !entry.isIntersecting);
+      if (!entry.isIntersecting) {
+        header.style.background = "#d7f0db";
+        header.style.boxShadow = "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+      } else {
+        header.style.background = "transparent";
+        header.style.boxShadow = "none";
+      }
       if (!entry.isIntersecting) throttledUpdate();
     },
     {

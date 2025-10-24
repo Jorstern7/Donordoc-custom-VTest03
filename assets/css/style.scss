@@ -74,6 +74,49 @@ footer {
   overflow: hidden;
 }
 
+.stroke-primary {
+    stroke: #37b24d;
+}
+
+.check-text {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.overline-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+
+    .overline-icon {
+        width: 20px;
+        height: 20px;
+        color: #37b24d;
+    }
+    
+    .overline-text {
+        font-size: 16px;
+        font-weight: 450;
+        color: black;
+        white-space: nowrap;
+        // transform: translateY(2px);
+    }
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.gap-2 {
+    gap: 8px;
+}
+
+.gap-4 {
+    gap: 16px;
+}
+
 .arrow-btn {
   display: flex;
   justify-content: center;
@@ -127,12 +170,13 @@ footer {
   align-items: center;
 
   &.btn-default {
-    background-color: #37b24d;
+    background: linear-gradient(to right, #37B24D, #1A3D5C);
+    border: none;
     color: #fff;
 
     &:hover,
     &:active {
-      background-color: darken(#37b24d, 10%);
+    background: linear-gradient(to right, #2E9A43, #162F46);
       color: #fff;
     }
 
@@ -276,6 +320,11 @@ footer {
 
   border-radius: 9px;
 }
+
+.bg-gradient-green-soft {
+  background: linear-gradient(to bottom, rgba(215, 240, 219, 0), #d7f0db 80%);
+}
+
 
 .popup {
   padding: 20px;
@@ -561,20 +610,7 @@ footer {
             color: #fff;
             background-color: #37b24d;
             border-color: #37b24d;
-            box-shadow: 0 4px 0 #2f9e44;
             transition: all 0.2s ease;
-
-            &:hover,
-            &:focus,
-            &:active,
-            &:focus-visible {
-              background-color: #32a045;
-              border-color: #32a045;
-              box-shadow: none;
-              outline: none;
-              transform: translateY(2px);
-              box-shadow: 0 2px 0 #2f9e44;
-            }
           }
         }
       }
@@ -738,7 +774,6 @@ footer {
 
 main {
   .section-health {
-    background-color: #d7f0db;
     padding: 50px 0 100px 0;
 
     p {
@@ -754,7 +789,7 @@ main {
         position: absolute;
         border-radius: 9px;
         transition: transform 0.8s ease, z-index 0.5s ease-in-out;
-        width: 350px;
+        width: 380px;
 
         &.health-img--1 {
           z-index: 1;
@@ -1038,16 +1073,15 @@ main {
             }
 
             .learn-more-btn {
-              bottom: -27px;
+              bottom: -25px;
               position: absolute;
-              padding: 5px 20px;
+              padding: 6.5px 20px;
               left: 0;
               right: 0;
               width: max-content;
               margin: 0 auto;
               background-color: #37b24d;
               color: #fff;
-              border: 3px solid #37b24d;
               transition: 0.5s all;
             }
 
@@ -1235,7 +1269,6 @@ main {
 
   .appointment-form-section {
     padding: 90px 0;
-    background-color: #d7f0db;
 
     .options {
       position: absolute;
@@ -1307,6 +1340,7 @@ main {
       padding: 30px 40px;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: solid 1px rgb(224, 224, 224);
 
       .form-title {
         text-align: center;
@@ -1610,7 +1644,6 @@ main {
 
   .find-a-doc-section {
     padding: 50px 0;
-    background-color: #d7f0db;
 
     h1,
     p {
@@ -1696,7 +1729,6 @@ main {
 
       .btn-submit,
       input[type="submit"] {
-        background-color: #37b24d;
         color: #fff;
         border: none;
         padding: 20px 40px;
@@ -1707,7 +1739,6 @@ main {
         transition: all 0.3s ease-in-out;
 
         &:hover {
-          background-color: #32a045;
           transition: all 0.3s ease-in-out;
           box-shadow: 0 0 6px #37b24d;
         }
@@ -1970,7 +2001,6 @@ main {
 #footer {
   .footer-section {
     padding: 50px 0;
-    background-color: #d7f0db;
 
     p {
       margin: 10px 0;
@@ -2057,7 +2087,7 @@ main {
   }
 
   .site-footer {
-    background-color: #37b24d;
+    background: linear-gradient(to right, #37B24D, #1A3D5C);
     padding: 20px 10px;
 
     p {
