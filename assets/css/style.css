@@ -2297,6 +2297,7 @@ main .blog-section .blog-card.blog-card--hidden {
   main .appointment-form-section .custom-form {
     background: transparent;
     box-shadow: none;
+    border: none;
     padding: 0;
   }
   main .find-a-doc-section .findDocform .btn-submit,
