@@ -113,27 +113,30 @@ function initNavScroll() {
 
   const observer = new IntersectionObserver(
     (entries) => {
-      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-      if (visibleEntries.length === 0) return;
+      const visible = entries.filter((e) => e.isIntersecting);
+      if (!visible.length) return;
 
-      const topmost = visibleEntries.reduce((prev, curr) => {
-        return curr.boundingClientRect.top < prev.boundingClientRect.top
-          ? curr
-          : prev;
-      });
+      const topmost = visible.reduce((a, b) =>
+        a.boundingClientRect.top < b.boundingClientRect.top ? a : b
+      );
 
-      const id = topmost.target.id;
-      const hash = `#${id}`;
+      const hash = `#${topmost.target.id}`;
 
-      history.replaceState(null, null, hash);
+      if (window.innerWidth > 768) {
+        history.replaceState(null, null, hash);
+      }
 
-      navLinks.forEach((link) => link.classList.remove("active"));
+      navLinks.forEach((l) => l.classList.remove("active"));
       if (linkMap[hash]) {
-        linkMap[hash].forEach((link) => link.classList.add("active"));
+        linkMap[hash].forEach((l) => l.classList.add("active"));
       }
     },
-    { threshold: 0.5 }
+    {
+      threshold: 0.2,
+      rootMargin: "-60px 0px -30% 0px",
+    }
   );
+
   sections.forEach((section) => observer.observe(section));
 }
 
