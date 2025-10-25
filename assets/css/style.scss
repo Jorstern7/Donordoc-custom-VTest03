@@ -43,6 +43,10 @@ body.loading {
   pointer-events: none;
 }
 
+.hero-img-container {
+    margin-top: 50px;
+}
+
 .preloader-spinner {
   width: 56px;
   height: 56px;
@@ -104,6 +108,11 @@ footer {
     }
 }
 
+.logo-img {
+    width: 250px;
+    height: auto;
+}
+
 .flex-center {
   display: flex;
   align-items: center;
@@ -154,12 +163,6 @@ footer {
   }
 }
 
-.btn-pale {
-    background: linear-gradient(to right, #37B24D, #1EA99D) !important;
-}
-.btn-pale:hover {
-  background: linear-gradient(to right, #2E9A43, #178F86) !important;
-}
 .btn {
   display: inline-flex;
   text-decoration: none;
@@ -176,13 +179,13 @@ footer {
   align-items: center;
 
   &.btn-default {
-    background: linear-gradient(to right, #37B24D, #1A3D5C);
+    background: linear-gradient(to right, #37B24D, #1EA99D);
     border: none;
     color: #fff;
 
     &:hover,
     &:active {
-    background: linear-gradient(to right, #2E9A43, #162F46);
+    background: linear-gradient(to right, #2E9A43, #178F86);
       color: #fff;
     }
 
@@ -489,8 +492,8 @@ footer {
     &.navbar-light .navbar-toggler {
       color: #d7f0db;
       z-index: 2000;
-      border-color: #37b24d;
-      background-color: #37b24d;
+    background: linear-gradient(to right, #37B24D, #1EA99D);
+
       width: 44px;
       height: 44px;
       border-radius: 50%;
@@ -614,8 +617,8 @@ footer {
             padding: 8px 20px;
             border-radius: 9px;
             color: #fff;
-            background-color: #37b24d;
-            border-color: #37b24d;
+
+
             transition: all 0.2s ease;
           }
         }
@@ -790,6 +793,7 @@ main {
 
     .health-img-box {
       position: relative;
+      max-height: 385px;
 
       .health-img {
         position: absolute;
@@ -2191,6 +2195,15 @@ main {
 }
 
 @media (max-width: 1199.98px) {
+
+    .check-text {
+        justify-content: center;
+        font-size: 14px;
+    }
+    .health-img-box {
+        max-height: 250px !important;
+        margin-top: 50px;
+    }
   #header nav .navbar-brand {
     width: 30%;
   }
@@ -2351,7 +2364,7 @@ main {
   #header nav ul:not(.dropdown-menu)>li:not(.dropdown)>a.active,
   #header nav ul:not(.dropdown-menu)>li:not(.dropdown)>a:hover {
     color: #fff;
-    background-color: #37b24d;
+    background: linear-gradient(to right, #37B24D, #1EA99D);
   }
 
   #header nav ul:not(.dropdown-menu)>li.dropdown>a {
@@ -2386,6 +2399,12 @@ main {
 
   .cta-group {
     justify-content: center;
+  }
+  .overline-container {
+    justify-content: center;
+    .overline-text {
+        font-size: 14px;
+    }
   }
   .heading-primary,
   .health-description {
