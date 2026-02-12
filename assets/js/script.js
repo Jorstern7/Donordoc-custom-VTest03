@@ -698,12 +698,32 @@ function initBlogSection() {
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
+  const IMAGE_LOAD_DELAY_MS = 500;
+
+  const applyImageLoaderToNewCards = (prevVisible, newVisible) => {
+    for (let i = prevVisible; i < newVisible && i < cards.length; i++) {
+      const card = cards[i];
+      const img = card.querySelector("img.card-img-top");
+      const imageWrapper = img?.parentElement;
+      if (!imageWrapper) continue;
+      imageWrapper.classList.add("blog-image-loading");
+      if (img) img.style.opacity = "0";
+      setTimeout(() => {
+        imageWrapper.classList.remove("blog-image-loading");
+        if (img) img.style.opacity = "";
+      }, IMAGE_LOAD_DELAY_MS);
+    }
+  };
+
   toggleBtn.addEventListener("click", () => {
     toggleBtn.disabled = true;
     const expanding = visibleCount < cards.length;
+    const prevVisible = visibleCount;
     visibleCount = expanding
       ? Math.min(visibleCount + cardsToShow, cards.length)
       : cardsToShow;
+
+    if (expanding) applyImageLoaderToNewCards(prevVisible, visibleCount);
 
     updateCardsVisibility();
 
