@@ -57,7 +57,185 @@ document.addEventListener("DOMContentLoaded", function () {
   initNavLinkEffects();
   initLazyImages();
   initImageBlurUp();
+  initFooterYear();
+  initAppointmentMode();
+  initSectionVisibility();
+  initAppointmentPickers();
 });
+
+function initAppointmentMode() {
+  try {
+    const section = document.getElementById("appointment-cta");
+    if (!section) return;
+
+    const internalEl = section.querySelector(
+      '[data-appointment-mode="internal"]',
+    );
+    const externalEl = section.querySelector(
+      '[data-appointment-mode="external"]',
+    );
+
+    if (!internalEl && !externalEl) {
+      console.warn(
+        "initAppointmentMode: no appointment mode containers found.",
+      );
+      return;
+    }
+
+    fetch("assets/config/appointment.json")
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Failed to load appointment.json");
+        }
+        return response.json();
+      })
+      .then(function (config) {
+        const mode =
+          config && typeof config.mode === "string"
+            ? config.mode.toLowerCase()
+            : "internal";
+
+        if (mode === "external") {
+          if (internalEl) {
+            internalEl.remove();
+          }
+          if (externalEl) {
+            externalEl.style.display = "";
+          }
+        } else {
+          if (externalEl) {
+            externalEl.remove();
+          }
+          if (internalEl) {
+            internalEl.style.display = "";
+          }
+        }
+      })
+      .catch(function (error) {
+        console.error("initAppointmentMode error:", error);
+      });
+  } catch (err) {
+    console.error("initAppointmentMode error:", err);
+  }
+}
+
+function initAppointmentPickers() {
+  try {
+    if (typeof window.FLDatePicker !== "function") return;
+
+    const dateEl = document.getElementById("appointment-date");
+    const timeEl = document.getElementById("appointment-time");
+
+    if (dateEl) {
+      new window.FLDatePicker(dateEl, {
+        type: "date",
+        placeholder: "Select date",
+      });
+    }
+    if (timeEl) {
+      new window.FLDatePicker(timeEl, {
+        type: "time",
+        timeStep: 15,
+        placeholder: "Select time",
+      });
+    }
+
+    const appointmentForm = document.querySelector(
+      "#appointment-cta .custom-form",
+    );
+    if (appointmentForm) {
+      appointmentForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const selectLabels = appointmentForm.querySelectorAll(
+          ".custom-select .selected",
+        );
+        const department =
+          selectLabels[0]?.textContent.trim() || "Not selected";
+        const secondary = selectLabels[1]?.textContent.trim() || "Not selected";
+
+        const name =
+          appointmentForm
+            .querySelector('input[placeholder="Your Name"]')
+            ?.value.trim() || "";
+        const email =
+          appointmentForm
+            .querySelector('input[placeholder="Your Email"]')
+            ?.value.trim() || "";
+
+        const dateValue =
+          document
+            .querySelector("#appointment-date .fl-picker-input")
+            ?.value.trim() || "";
+        const timeValue =
+          document
+            .querySelector("#appointment-time .fl-picker-input")
+            ?.value.trim() || "";
+
+        const payload = {
+          department,
+          secondary,
+          name,
+          email,
+          date: dateValue,
+          time: timeValue,
+        };
+
+        alert(JSON.stringify(payload, null, 2));
+      });
+    }
+  } catch (err) {
+    console.error("initAppointmentPickers error:", err);
+  }
+}
+
+function initSectionVisibility() {
+  try {
+    fetch("assets/config/sections.json")
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Failed to load sections.json");
+        }
+        return response.json();
+      })
+      .then(function (config) {
+        if (!config || typeof config !== "object") {
+          return;
+        }
+
+        Object.keys(config).forEach(function (key) {
+          var enabled = !!config[key];
+          var section = document.querySelector(
+            '[data-section-key="' + key + '"]',
+          );
+
+          if (!section) {
+            return;
+          }
+
+          section.hidden = !enabled;
+        });
+      })
+      .catch(function (error) {
+        console.error("Error applying section visibility config:", error);
+      });
+  } catch (err) {
+    console.error("initSectionVisibility error:", err);
+  }
+}
+
+function initFooterYear() {
+  try {
+    const yearEl = document.getElementById("footer-year");
+    if (!yearEl) return;
+
+    const currentYear = new Date().getFullYear();
+    yearEl.textContent = currentYear;
+    yearEl.setAttribute("datetime", String(currentYear));
+  } catch (err) {
+    console.error("Footer year init error:", err);
+  }
+}
 
 function initStickyHeader() {
   const header = document.getElementById("header");
@@ -93,7 +271,7 @@ function initStickyHeader() {
       root: null,
       threshold: 0,
       rootMargin: "-100px",
-    }
+    },
   );
 
   obs.observe(hero);
@@ -102,7 +280,7 @@ function initStickyHeader() {
 function initNavScroll() {
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(
-    '.navbar-nav a[href^="#"], .nav a[href^="#"]'
+    '.navbar-nav a[href^="#"], .nav a[href^="#"]',
   );
   const linkMap = {};
   navLinks.forEach((link) => {
@@ -117,7 +295,7 @@ function initNavScroll() {
       if (!visible.length) return;
 
       const topmost = visible.reduce((a, b) =>
-        a.boundingClientRect.top < b.boundingClientRect.top ? a : b
+        a.boundingClientRect.top < b.boundingClientRect.top ? a : b,
       );
 
       const hash = `#${topmost.target.id}`;
@@ -134,7 +312,7 @@ function initNavScroll() {
     {
       threshold: 0.2,
       rootMargin: "-60px 0px -30% 0px",
-    }
+    },
   );
 
   sections.forEach((section) => observer.observe(section));
@@ -154,7 +332,7 @@ function initMobileMenu() {
   }
 
   const offcanvasLinks = document.querySelectorAll(
-    '.offcanvas-body li:not(.dropdown) a[href^="#"]'
+    '.offcanvas-body li:not(.dropdown) a[href^="#"]',
   );
   offcanvasLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
@@ -311,7 +489,7 @@ function initSwiperAutoplayInView(swipers) {
         }
       });
     },
-    { threshold: 0.5 }
+    { threshold: 0.5 },
   );
 
   swipers.forEach((swiper) => {
@@ -375,7 +553,7 @@ function initBackToTop() {
     "scroll",
     throttle(function () {
       goTopButton.classList.toggle("show", window.scrollY > 300);
-    }, 100)
+    }, 100),
   );
 
   goTopButton.addEventListener("click", function () {
@@ -504,7 +682,7 @@ function initBlogSection() {
               card.removeEventListener("transitionend", handler);
             }
           },
-          { once: true }
+          { once: true },
         );
       }
     });
@@ -548,10 +726,10 @@ function initBlogSection() {
 
 function initDropdownBehaviors() {
   const navDropdownToggle = document.querySelector(
-    ".nav-item.dropdown .nav-link.dropdown-toggle"
+    ".nav-item.dropdown .nav-link.dropdown-toggle",
   );
   const navDropdownMenu = document.querySelector(
-    ".nav-item.dropdown .dropdown-menu"
+    ".nav-item.dropdown .dropdown-menu",
   );
 
   if (navDropdownToggle && navDropdownMenu) {
@@ -633,7 +811,7 @@ function initDropdownBehaviors() {
 
 function initNavLinkEffects() {
   const allLinks = document.querySelectorAll(
-    ".navbar-nav .nav-link, .navbar-nav .dropdown-item"
+    ".navbar-nav .nav-link, .navbar-nav .dropdown-item",
   );
   const dropdown = document.querySelector(".nav-item.dropdown");
   if (!allLinks.length || !dropdown) return;
@@ -679,7 +857,7 @@ function scaleMiddleSlide(swiper) {
   swiper.slides.forEach((slide) => slide.classList.remove("is-scaled"));
 
   const visibleSlides = Array.from(swiper.slides).filter((slide) =>
-    slide.classList.contains("swiper-slide-visible")
+    slide.classList.contains("swiper-slide-visible"),
   );
 
   if (visibleSlides.length === 3) {
@@ -748,7 +926,7 @@ function initLazyImages() {
               obs.unobserve(img);
             });
           },
-          { rootMargin: "200px 0px" }
+          { rootMargin: "200px 0px" },
         )
       : null;
 
@@ -827,7 +1005,7 @@ function initImageBlurUp() {
                 obs.unobserve(img);
               });
             },
-            { rootMargin: "200px 0px", threshold: 0.01 }
+            { rootMargin: "200px 0px", threshold: 0.01 },
           )
         : null;
 

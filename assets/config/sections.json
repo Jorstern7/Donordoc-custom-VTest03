@@ -1,0 +1,13 @@
+{
+    "health-cta": true,
+    "featured": true,
+    "about-cta": true,
+    "services-cta": true,
+    "pricing-cta": true,
+    "find-doctor-cta": true,
+    "testimonials-cta": true,
+    "appointment-cta": true,
+    "morehelp-cta": true,
+    "contact-cta": true
+}
+  

@@ -1012,7 +1012,6 @@ main {
       position: relative;
       text-align: center;
       border-radius: 9px;
-      margin-bottom: 30px;
       transform-style: preserve-3d;
 
       @-moz-document url-prefix() {
@@ -1621,6 +1620,12 @@ main {
             text-align: left;
             color: #333;
             line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             &.desigination {
               color: #37b24d;
@@ -1940,6 +1945,12 @@ main {
           margin-bottom: 0;
           color: #666;
           text-align: left;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 
@@ -2594,8 +2605,8 @@ main {
   main .blog-section .card .card-body p {
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
     -webkit-box-orient: vertical;
   }
   #header nav.navbar-light .navbar-toggler {
@@ -2800,8 +2811,8 @@ main {
   main .blog-section .card .card-body p {
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
     -webkit-box-orient: vertical;
   }
 
