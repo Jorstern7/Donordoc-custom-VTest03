@@ -161,8 +161,14 @@
   padding: 0;
 }
 
-.fl-calendar-nav:hover {
+.fl-calendar-nav:hover:not(:disabled) {
   background: var(--fl-primary-light);
+}
+
+.fl-calendar-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .fl-calendar-nav:focus-visible {

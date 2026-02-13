@@ -130,6 +130,8 @@ function initAppointmentPickers() {
       new window.FLDatePicker(dateEl, {
         type: "date",
         placeholder: "Select date",
+        // Restrict to today and future dates only
+        disablePast: true,
       });
     }
     if (timeEl) {

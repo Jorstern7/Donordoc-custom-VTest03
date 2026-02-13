@@ -22,6 +22,10 @@
     placeholder: "",
     minDate: null,
     maxDate: null,
+    // When true (for type === "date"), automatically prevents selecting
+    // past dates by setting minDate to today (at midnight) unless a
+    // custom minDate is already provided.
+    disablePast: false,
     timeStep: 15,
     errorMessage: "This field is required.",
   };
@@ -79,6 +83,16 @@
     this.opts = {};
     for (var k in DEFAULTS) {
       this.opts[k] = opts && opts[k] !== undefined ? opts[k] : DEFAULTS[k];
+    }
+
+    if (
+      this.opts.type === "date" &&
+      this.opts.disablePast &&
+      !this.opts.minDate
+    ) {
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      this.opts.minDate = today;
     }
 
     this.wrapper = el;
@@ -247,6 +261,9 @@
       this.daysContainer.appendChild(btn);
     }
 
+    // Update prev/next arrow disabled state
+    this._updateNavArrows();
+
     // Attach click delegation
     this.daysContainer.onclick = function (ev) {
       var target = ev.target;
@@ -262,6 +279,59 @@
         self.close();
       }
     };
+  };
+
+  /* ── Update prev/next nav arrow disabled state ───────────────────── */
+  FLDatePicker.prototype._updateNavArrows = function () {
+    if (this.opts.type !== "date") return;
+
+    var shouldDisablePrev = false;
+    var shouldDisableNext = false;
+
+    // Disable prev arrow if minDate month/year is reached
+    if (this.opts.minDate) {
+      var minM = this.opts.minDate.getMonth();
+      var minY = this.opts.minDate.getFullYear();
+      if (this.viewYear < minY || (this.viewYear === minY && this.viewMonth <= minM)) {
+        shouldDisablePrev = true;
+      }
+    }
+
+    // Disable next arrow if maxDate month/year is reached
+    if (this.opts.maxDate) {
+      var maxM = this.opts.maxDate.getMonth();
+      var maxY = this.opts.maxDate.getFullYear();
+      if (this.viewYear > maxY || (this.viewYear === maxY && this.viewMonth >= maxM)) {
+        shouldDisableNext = true;
+      }
+    }
+
+    // If a button that currently has focus is about to be disabled,
+    // move focus to the next button (or a day cell) first so the
+    // wrapper doesn't lose focus and trigger focusout → close.
+    if (shouldDisablePrev && document.activeElement === this.prevBtn) {
+      this.nextBtn.focus();
+    }
+    if (shouldDisableNext && document.activeElement === this.nextBtn) {
+      this.prevBtn.focus();
+    }
+
+    // Apply disabled state
+    if (shouldDisablePrev) {
+      this.prevBtn.setAttribute("disabled", "");
+      this.prevBtn.setAttribute("aria-disabled", "true");
+    } else {
+      this.prevBtn.removeAttribute("disabled");
+      this.prevBtn.removeAttribute("aria-disabled");
+    }
+
+    if (shouldDisableNext) {
+      this.nextBtn.setAttribute("disabled", "");
+      this.nextBtn.setAttribute("aria-disabled", "true");
+    } else {
+      this.nextBtn.removeAttribute("disabled");
+      this.nextBtn.removeAttribute("aria-disabled");
+    }
   };
 
   /* ── Time list builder ──────────────────────────────────────────── */
@@ -395,6 +465,12 @@
     // Prevent clicks inside popover from bubbling to document
     this.popover.addEventListener("click", function (e) {
       e.stopPropagation();
+    });
+
+    this.popover.addEventListener("mousedown", function (e) {
+      if (!e.target.closest("button:not(:disabled)")) {
+        e.preventDefault();
+      }
     });
   };
 
