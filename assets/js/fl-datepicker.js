@@ -26,6 +26,9 @@
     // past dates by setting minDate to today (at midnight) unless a
     // custom minDate is already provided.
     disablePast: false,
+    // When true, the popover closes after selecting a date or time.
+    // When false, it stays open and highlights the selection.
+    closeOnSelect: true,
     timeStep: 15,
     errorMessage: "This field is required.",
   };
@@ -276,7 +279,14 @@
         self.selectedDate = new Date(self.viewYear, self.viewMonth, day);
         self.input.value = formatDate(self.selectedDate, self.opts.format);
         self._clearError();
-        self.close();
+        if (self.opts.closeOnSelect) {
+          self.close();
+        } else {
+          self._renderDays();
+          // Re-focus the newly selected day so focus stays inside the wrapper
+          var sel = self.daysContainer.querySelector(".fl-calendar-day--selected");
+          if (sel) sel.focus();
+        }
       }
     };
   };
@@ -292,7 +302,10 @@
     if (this.opts.minDate) {
       var minM = this.opts.minDate.getMonth();
       var minY = this.opts.minDate.getFullYear();
-      if (this.viewYear < minY || (this.viewYear === minY && this.viewMonth <= minM)) {
+      if (
+        this.viewYear < minY ||
+        (this.viewYear === minY && this.viewMonth <= minM)
+      ) {
         shouldDisablePrev = true;
       }
     }
@@ -301,7 +314,10 @@
     if (this.opts.maxDate) {
       var maxM = this.opts.maxDate.getMonth();
       var maxY = this.opts.maxDate.getFullYear();
-      if (this.viewYear > maxY || (this.viewYear === maxY && this.viewMonth >= maxM)) {
+      if (
+        this.viewYear > maxY ||
+        (this.viewYear === maxY && this.viewMonth >= maxM)
+      ) {
         shouldDisableNext = true;
       }
     }
@@ -375,7 +391,17 @@
         self.selectedTimeValue = target.dataset.value;
         self.input.value = target.dataset.value;
         self._clearError();
-        self.close();
+        if (self.opts.closeOnSelect) {
+          self.close();
+        } else {
+          self._renderTimeList();
+          // Re-focus the newly selected time so focus stays inside the wrapper
+          var sel = self.timeListEl.querySelector(".fl-timelist-option--selected");
+          if (sel) {
+            sel.scrollIntoView({ block: "nearest" });
+            sel.focus();
+          }
+        }
       }
     };
   };
