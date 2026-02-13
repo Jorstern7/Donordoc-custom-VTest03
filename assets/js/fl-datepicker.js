@@ -510,6 +510,7 @@
     this.popover.classList.add("fl-picker-popover--open");
     this.isOpen = true;
     this.input.setAttribute("aria-expanded", "true");
+    this.wrapper.classList.add("fl-picker--focused");
     _activeInstance = this;
 
     // Position after render
@@ -548,6 +549,7 @@
 
   FLDatePicker.prototype.close = function () {
     this.popover.classList.remove("fl-picker-popover--open");
+    this.wrapper.classList.remove("fl-picker--focused");
     this.isOpen = false;
     this.input.setAttribute("aria-expanded", "false");
     this.input.focus();
@@ -581,6 +583,7 @@
 
   /* ── Destroy ────────────────────────────────────────────────────── */
   FLDatePicker.prototype.destroy = function () {
+    this.wrapper.classList.remove("fl-picker--focused");
     if (this.popover && this.popover.parentNode) {
       this.popover.parentNode.removeChild(this.popover);
     }

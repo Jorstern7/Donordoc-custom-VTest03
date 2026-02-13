@@ -55,10 +55,14 @@
 .fl-picker-input:focus,
 .fl-picker-input:focus-visible {
   outline: none;
-  /* border-color: var(--fl-primary); */
-  /* box-shadow: 0 0 6px rgba(55, 178, 77, 1); */
   border: none;
   box-shadow: none;
+}
+
+/* Programmatic focus when overlay is open */
+.fl-picker.fl-picker--focused .fl-picker-input {
+  border-color: var(--fl-primary);
+  box-shadow: 0 0 6px rgba(55, 178, 77, 1);
 }
 
 /* Error state */
