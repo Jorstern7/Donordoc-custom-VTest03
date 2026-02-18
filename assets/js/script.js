@@ -130,9 +130,9 @@ function initAppointmentPickers() {
       new window.FLDatePicker(dateEl, {
         type: "date",
         placeholder: "Select date",
-        // Restrict to today and future dates only
         disablePast: true,
         closeOnSelect: false,
+        closeOnSelectDelay: 400,
       });
     }
     if (timeEl) {
@@ -141,6 +141,7 @@ function initAppointmentPickers() {
         timeStep: 15,
         placeholder: "Select time",
         closeOnSelect: false,
+        closeOnSelectDelay: 400,
       });
     }
 

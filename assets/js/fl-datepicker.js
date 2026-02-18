@@ -29,6 +29,9 @@
     // When true, the popover closes after selecting a date or time.
     // When false, it stays open and highlights the selection.
     closeOnSelect: true,
+    // If > 0 (ms), popover closes this many ms after selection so the user
+    // briefly sees the selected date/time. Use with closeOnSelect: false.
+    closeOnSelectDelay: 0,
     timeStep: 15,
     errorMessage: "This field is required.",
   };
@@ -279,13 +282,17 @@
         self.selectedDate = new Date(self.viewYear, self.viewMonth, day);
         self.input.value = formatDate(self.selectedDate, self.opts.format);
         self._clearError();
-        if (self.opts.closeOnSelect) {
+        if (self.opts.closeOnSelect && !self.opts.closeOnSelectDelay) {
           self.close();
         } else {
           self._renderDays();
-          // Re-focus the newly selected day so focus stays inside the wrapper
           var sel = self.daysContainer.querySelector(".fl-calendar-day--selected");
           if (sel) sel.focus();
+          if (self.opts.closeOnSelectDelay > 0) {
+            setTimeout(function () {
+              self.close();
+            }, self.opts.closeOnSelectDelay);
+          }
         }
       }
     };
@@ -391,15 +398,19 @@
         self.selectedTimeValue = target.dataset.value;
         self.input.value = target.dataset.value;
         self._clearError();
-        if (self.opts.closeOnSelect) {
+        if (self.opts.closeOnSelect && !self.opts.closeOnSelectDelay) {
           self.close();
         } else {
           self._renderTimeList();
-          // Re-focus the newly selected time so focus stays inside the wrapper
           var sel = self.timeListEl.querySelector(".fl-timelist-option--selected");
           if (sel) {
             sel.scrollIntoView({ block: "nearest" });
             sel.focus();
+          }
+          if (self.opts.closeOnSelectDelay > 0) {
+            setTimeout(function () {
+              self.close();
+            }, self.opts.closeOnSelectDelay);
           }
         }
       }
