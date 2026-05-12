@@ -119,6 +119,45 @@ function initAppointmentMode() {
   }
 }
 
+const DISABLED_APPOINTMENT_TIMES = [
+  "12:00 AM",
+  "12:15 AM",
+  "12:30 AM",
+  "12:45 AM",
+  "1:00 AM",
+  "1:15 AM",
+  "1:30 AM",
+  "1:45 AM",
+  "2:00 AM",
+  "2:15 AM",
+  "2:30 AM",
+  "2:45 AM",
+  "3:00 AM",
+  "3:15 AM",
+  "3:30 AM",
+  "3:45 AM",
+  "4:00 AM",
+  "4:15 AM",
+  "4:30 AM",
+  "4:45 AM",
+  "5:00 AM",
+  "5:15 AM",
+  "5:30 AM",
+  "5:45 AM",
+  "6:00 AM",
+  "6:15 AM",
+  "6:30 AM",
+  "6:45 AM",
+  "7:00 AM",
+  "7:15 AM",
+  "7:30 AM",
+  "7:45 AM",
+  "8:00 AM",
+  "8:15 AM",
+  "8:30 AM",
+  "8:45 AM",
+];
+
 function initAppointmentPickers() {
   try {
     if (typeof window.FLDatePicker !== "function") return;
@@ -142,6 +181,7 @@ function initAppointmentPickers() {
         placeholder: "Select time",
         closeOnSelect: false,
         closeOnSelectDelay: 400,
+        disabledTimes: DISABLED_APPOINTMENT_TIMES,
       });
     }
 
