@@ -892,6 +892,15 @@ main {
       font-weight: bold;
     }
 
+    .container > .row > [class*="col-"] {
+      position: relative;
+    }
+
+    .container > .row > [class*="col-"]:has(.flip:hover),
+    .container > .row > [class*="col-"]:has(.flip:focus-within) {
+      z-index: 5;
+    }
+
     .flip {
       -webkit-perspective: 800px;
       perspective: 800px;
@@ -899,26 +908,20 @@ main {
       text-align: center;
       border-radius: 9px;
       transform-style: preserve-3d;
+      overflow: visible;
+      padding-bottom: 48px;
 
       @-moz-document url-prefix() {
         overflow: visible;
         backface-visibility: hidden;
       }
 
-      &:hover {
-        .card:not(.flipped) {
-          @media (min-width: 1024px) {
-            transform: rotatey(-180deg);
-          }
-        }
-      }
-  
       .card {
         min-height: 310px;
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
-        -webkit-transition: transform 0.6s ease;
-        transition: transform 0.6s ease;
+        -webkit-transition: transform 0.6s ease, box-shadow 0.3s ease;
+        transition: transform 0.6s ease, box-shadow 0.3s ease;
         background-color: transparent;
         border-radius: 9px;
         border: none;
@@ -933,6 +936,18 @@ main {
         &.flipped {
           -webkit-transform: rotatey(-180deg);
           transform: rotatey(-180deg);
+
+          .card-body.back .btn-arrow {
+            bottom: 10px;
+            opacity: 1;
+          }
+        }
+
+        &:not(.flipped):hover {
+          @media (min-width: 1024px) {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+          }
         }
 
         .card-body {
@@ -951,12 +966,6 @@ main {
 
           @-moz-document url-prefix() {
             will-change: transform;
-          }
-
-          @media (min-width: 1024px) {
-            .learn-more-btn {
-              display: none;
-            }
           }
 
           &.front {
@@ -978,6 +987,10 @@ main {
               background-color: #37b24d;
               color: #fff;
               transition: 0.5s all;
+
+              @media (min-width: 768px) {
+                font-size: 16px;
+              }
             }
 
             .service-box-info {
@@ -1152,11 +1165,6 @@ main {
               }
             }
           }
-        }
-
-        &:hover .card-body.back .btn-arrow {
-          bottom: 10px;
-          opacity: 1;
         }
       }
     }

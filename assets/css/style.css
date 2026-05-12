@@ -746,12 +746,21 @@ main .services-section h1 {
   color: #333;
   font-weight: bold;
 }
+main .services-section .container > .row > [class*=col-] {
+  position: relative;
+}
+main .services-section .container > .row > [class*=col-]:has(.flip:hover),
+main .services-section .container > .row > [class*=col-]:has(.flip:focus-within) {
+  z-index: 5;
+}
 main .services-section .flip {
   perspective: 800px;
   position: relative;
   text-align: center;
   border-radius: 9px;
   transform-style: preserve-3d;
+  overflow: visible;
+  padding-bottom: 48px;
 }
 @-moz-document url-prefix() {
   main .services-section .flip {
@@ -759,15 +768,10 @@ main .services-section .flip {
     backface-visibility: hidden;
   }
 }
-@media (min-width: 1024px) {
-  main .services-section .flip:hover .card:not(.flipped) {
-    transform: rotatey(-180deg);
-  }
-}
 main .services-section .flip .card {
   min-height: 310px;
   transform-style: preserve-3d;
-  transition: transform 0.6s ease;
+  transition: transform 0.6s ease, box-shadow 0.3s ease;
   background-color: transparent;
   border-radius: 9px;
   border: none;
@@ -782,6 +786,16 @@ main .services-section .flip .card {
 }
 main .services-section .flip .card.flipped {
   transform: rotatey(-180deg);
+}
+main .services-section .flip .card.flipped .card-body.back .btn-arrow {
+  bottom: 10px;
+  opacity: 1;
+}
+@media (min-width: 1024px) {
+  main .services-section .flip .card:not(.flipped):hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
 }
 main .services-section .flip .card .card-body {
   backface-visibility: hidden;
@@ -799,11 +813,6 @@ main .services-section .flip .card .card-body {
 @-moz-document url-prefix() {
   main .services-section .flip .card .card-body {
     will-change: transform;
-  }
-}
-@media (min-width: 1024px) {
-  main .services-section .flip .card .card-body .learn-more-btn {
-    display: none;
   }
 }
 main .services-section .flip .card .card-body.front {
@@ -827,6 +836,11 @@ main .services-section .flip .card .card-body.front .learn-more-btn {
   background-color: #37b24d;
   color: #fff;
   transition: 0.5s all;
+}
+@media (min-width: 768px) {
+  main .services-section .flip .card .card-body.front .learn-more-btn {
+    font-size: 16px;
+  }
 }
 main .services-section .flip .card .card-body.front .service-box-info {
   padding-bottom: 0;
@@ -975,10 +989,6 @@ main .services-section .flip .card .card-body .service-list div:hover, main .ser
 }
 main .services-section .flip .card .card-body .service-list div span {
   font-size: 16px;
-}
-main .services-section .flip .card:hover .card-body.back .btn-arrow {
-  bottom: 10px;
-  opacity: 1;
 }
 main .appointment-form-section {
   padding: 90px 0;
